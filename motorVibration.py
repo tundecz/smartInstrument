@@ -1,16 +1,22 @@
 from gpiozero import PWMOutputDevice
 from time import sleep
-import readMidiMido as midi
 import constants
+from helper import Helper
 
 class VibrationMotor:
 
     # Constructor
-    def __init__(self, pinNumber: int):
-        self._vibrationMotor = PWMOutputDevice(pinNumber)
+    def __init__(self):
+        self._vibrationMotor = PWMOutputDevice(constants.GPIO_PIN_14)
 
-    def vibrate(self, vibrationValue: int):
+    # set the vibration value and frequency
+    # default frequency is 100  Hz
+    # we need midiNote to calculate the frequency
+    def vibrate(self, vibrationValue, midiNote):
+        frequency = Helper.convertMidiNumberToFrequency(midiNote)
         self._vibrationMotor.value = vibrationValue
+        self._vibrationMotor.frequency = frequency
 
-    def calculateVibrationValue(self, value: int) -> int:
-        pass
+    # desctructor
+    def __del__(self):
+        self._vibrationMotor.stop()

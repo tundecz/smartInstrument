@@ -4,14 +4,15 @@ import time
 import constants
 import logging
 import motorVibration as motor
+import helper
 
 class ReadMidi:
     
-    def __init__(self, port: str):
+    def __init__(self, port):
         print("Constructor")
         self._midiIn, self._midiPort = midiutil.open_midiinput(port)
-        self._motor = motor.VibrationMotor(constants.GPIO_PIN)
-        # for motor in range constants.NUMBER_OF_MOTORS:
+        self._motor = motor.VibrationMotor()
+
 
     @property
     def port(self):
@@ -46,21 +47,25 @@ class ReadMidi:
                 if msg:
                     print("Message got")
                     message, deltatime = msg
-                    timer += deltatime
+                    timer += deltatime 
+                    ansiNote = self._toNote(message[1])
+                    midiNote = message[1]
                     print("message: %r, timer: @%0.6f" % (message, timer))
-                    self._motor.vibrate(self._motor.calculateVibrationValue(message[0])) # see what part of message we need to take
-                else:
-                    self._motor.vibrate(0)
+                    print("note: " + str(ansiNote))
+                    # self._motor.vibrate(self._motor.calculateVibrationValue(message[0])) # see what part of message we need to take
+                    # self._motor._scaleToMotorVibrationValue(midiNote)
+                # else:
+                    # self._motor.vibrate(0)
                 time.sleep(0.01)
         except KeyboardInterrupt:
             print('')
         finally:
             self._midiIn.close_port()
-            # print("Exit from midi reading")
+            print("Exited from midi reading")
     
-    def toNote(self, number: int):
-        pass
+    def _toNote(self, number):
+        return constants.NOTES[number % 12]
     
     def run(self):
-        self._open_input_port()
+        self.list_input_ports()
         self._get_midi_messages()
