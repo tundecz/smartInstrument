@@ -1,4 +1,5 @@
 from rtmidi import midiutil
+import mido
 from time import sleep
 import time
 import constants
@@ -10,17 +11,9 @@ class ReadMidi:
     
     def __init__(self, port):
         print("Constructor")
-        self._midiIn, self._midiPort = midiutil.open_midiinput(port)
+        # self._midiIn, self._midiPort = midiutil.open_midiinput(port)
+        self._midiIn = mido.open_input(port)
         self._motor = motor.VibrationMotor()
-
-
-    @property
-    def port(self):
-        return self._midiPort
-    
-    @port.setter
-    def port(self, port):
-        self._midiPort = port
 
 
     @property
@@ -33,29 +26,29 @@ class ReadMidi:
 
 
     def list_input_ports(self):
-        midiutil.list_input_ports()
-    
-    def _open_input_port(self):
-        midiutil.open_midiinput(self._midiPort)
+        # midiutil.list_input_ports()
+        mido.get_input_names()
 
+    def _close_input_port(self):
+        self._midiIn.close()
+    
+
+    def _get_note_and_velocity(self, message):
+        note = message[1]
+        velocity = message[2]
+        return note, velocity
     
     def _get_midi_messages(self):
         try:
             timer = time.time()
             while True:
-                msg = self._midiIn.get_message()
-                if msg:
-                    print("Message got")
-                    message, deltatime = msg
-                    timer += deltatime 
-                    ansiNote = self._toNote(message[1])
-                    midiNote = message[1]
-                    print("message: %r, timer: @%0.6f" % (message, timer))
-                    print("note: " + str(ansiNote))
-                    # self._motor.vibrate(self._motor.calculateVibrationValue(message[0])) # see what part of message we need to take
-                    # self._motor._scaleToMotorVibrationValue(midiNote)
-                # else:
-                    # self._motor.vibrate(0)
+                for message in self._midiIn:
+                    bytes_array = message.bytes()
+                    if(bytes_array[0] is not 248):
+                        note, velocity = self._get_note_and_velocity(bytes_array)
+                        ansi_note = self._toNote(note)
+                        print("Note %d pressed with %d velocity" %(ansi_note, velocity))
+                        self._motor.vibrate(1,note)
                 time.sleep(0.01)
         except KeyboardInterrupt:
             print('')
