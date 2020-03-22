@@ -13,6 +13,7 @@ class ReadMidi:
         print("Constructor")
         # self._midiIn, self._midiPort = midiutil.open_midiinput(port)
         self._midiIn = mido.open_input(port)
+        print(self._midiIn)
         self._motor = motor.VibrationMotor()
 
 
@@ -31,12 +32,20 @@ class ReadMidi:
 
     def _close_input_port(self):
         self._midiIn.close()
+        print("Midi port closed")
     
 
     def _get_note_and_velocity(self, message):
-        note = message[1]
-        velocity = message[2]
-        return note, velocity
+        try:
+            note = message[1]
+            velocity = message[2]
+            return note, velocity
+        except:
+            print("Something went wrong with byte parsing")
+
+    def _is_pressed_note(self, bytes_array):
+        return True if bytes_array.__len__() > 1 else False
+
     
     def _get_midi_messages(self):
         try:
@@ -44,17 +53,19 @@ class ReadMidi:
             while True:
                 for message in self._midiIn:
                     bytes_array = message.bytes()
-                    if(bytes_array[0] is not 248):
+                    if(self._is_pressed_note(bytes_array)):
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = self._toNote(note)
-                        print("Note %d pressed with %d velocity" %(ansi_note, velocity))
-                        self._motor.vibrate(1,note)
+                        print("Note %s pressed with %d velocity" %(ansi_note, velocity))
+                        # self._motor.vibrate(1,note)
+                    else:
+                        pass
+                        # self._motor.vibrate(0)
                 time.sleep(0.01)
         except KeyboardInterrupt:
-            print('')
+            print('Interrupted from keyboard\n')
         finally:
-            self._midiIn.close_port()
-            print("Exited from midi reading")
+            self._close_input_port()
     
     def _toNote(self, number):
         return constants.NOTES[number % 12]
