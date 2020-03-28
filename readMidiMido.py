@@ -1,10 +1,9 @@
-from rtmidi import midiutil
 import mido
 from time import sleep
 import time
 import constants
 import logging
-import motorVibration as motor
+from motorVibration import VibrationMotor
 from helper import Helper
 
 class ReadMidi:
@@ -13,7 +12,7 @@ class ReadMidi:
         print("Constructor")
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
-        self._motor = motor.VibrationMotor()
+        self._motor = VibrationMotor()
 
 
     @property
@@ -24,9 +23,11 @@ class ReadMidi:
     def midiIn(self, midiIn):
         self._midiIn = midiIn
 
+    # get list of available input ports
     def list_input_ports(self):
         mido.get_input_names()
 
+    # close input port
     def _close_input_port(self):
         self._midiIn.close()
         print("Midi port closed")
@@ -45,7 +46,6 @@ class ReadMidi:
     # if no note was pressed, the array looks like this => [248]
     def _is_pressed_note(self, bytes_array):
         return True if bytes_array.__len__() > 1 else False
-    
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
     def _get_midi_messages(self):
