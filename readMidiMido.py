@@ -5,6 +5,7 @@ import constants
 import logging
 from motorVibration import VibrationMotor
 from helper import Helper
+# from mido.sockets import PortServer, connect
 
 class ReadMidi:
     
@@ -12,8 +13,7 @@ class ReadMidi:
         print("Constructor")
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
-        self._motor = VibrationMotor()
-
+        self._motor = VibrationMotor(constants.GPIO_PIN_14)
 
     @property
     def midiIn(self):
@@ -40,7 +40,7 @@ class ReadMidi:
             velocity = message[2]
             return note, velocity
         except:
-            print("Something went wrong with byte parsing")
+            print("Something went wrong with byte parsing\n")
 
     # returns true if the array is a pressed note 
     # if no note was pressed, the array looks like this => [248]
@@ -58,10 +58,9 @@ class ReadMidi:
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
-                        # self._motor.vibrate(1,note)
+                        self._motor.vibrate(1,note) # instead of 1, it will be velocity
                     else:
-                        pass
-                        # self._motor.vibrate(0)
+                        self._motor.vibrate(0)
                 time.sleep(0.01)
         except KeyboardInterrupt:
             print('Interrupted from keyboard\n')
