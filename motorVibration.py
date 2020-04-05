@@ -16,17 +16,16 @@ class VibrationMotor:
         # it may not work (calculation problems) => more safe this way
         if(midiNote is not constants.NOTE_OFF_VALUE):
             self._set_motor_value_and_frequency(velocity, midiNote)
+            sleep(0.1)
         else:
            self._set_to_0()
-        # do we need to sleep???
-        sleep(0.1)
 
     def _get_frequency_and_value(self, velocity, midiNote):
         try:
             frequency = Helper.convert_midi_number_to_frequency(midiNote)
         except Exception:
             print("Cannot convert to frequency")
-        value = 0.5 # change this  to calculate from velocity
+        value = 1 # change this  to calculate from velocity
         return frequency, value
     
     # set the value to 0 and frequency to 100
