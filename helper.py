@@ -9,11 +9,10 @@ class Helper:
     @staticmethod
     def convert_midi_number_to_frequency(midiNumer):
         try:
-            base = 2
-            power = (midiNumer-49)/12
-            return math.pow(base, power) * 440
+            tone = Tone(midi=midiNumer)
+            return tone.frequency
         except:
-            print("Operation problem (convert midi number to freuency")
+            print("Operation problem (convert midi number to freuency)")
 
     # converts midi note numbers to ansi note
     @staticmethod
