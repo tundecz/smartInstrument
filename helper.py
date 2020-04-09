@@ -33,7 +33,11 @@ class Helper:
         if midiNote is constants.MIDDLE_C:
             return constants.MIDDLE_C_VALUE
         else:
-            return Helper._rule_of_3(midiNote)
+            vibration_value = Helper._rule_of_3(midiNote)
+            if vibration_value > 1:
+                return 1
+            else:
+                return vibration_value
 
     @staticmethod
     def _rule_of_3(note):
