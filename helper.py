@@ -37,7 +37,7 @@ class Helper:
 
     @staticmethod
     def _rule_of_3(note):
-        return (note*constants.MIDDLE_C_VALUE)/constants.MIDDLE_C
+        return (constants.MIDDLE_C * constants.MIDDLE_C_VALUE)/note
     
     
     
