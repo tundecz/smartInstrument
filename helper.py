@@ -26,3 +26,18 @@ class Helper:
             return 0.5
         else:
             pass
+
+    # middle A (69) will be 0.5
+    @staticmethod
+    def calculate_value_based_on_note(midiNote):
+        if midiNote is constants.MIDDLE_C:
+            return constants.MIDDLE_C_VALUE
+        else:
+            return Helper._rule_of_3(midiNote)
+
+    @staticmethod
+    def _rule_of_3(note):
+        return (note*constants.MIDDLE_C_VALUE)/constants.MIDDLE_C
+    
+    
+    
