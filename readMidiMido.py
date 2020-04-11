@@ -48,6 +48,15 @@ class ReadMidi:
     # if no note was pressed, the array looks like this => [248]
     def _is_pressed_note(self, bytes_array):
         return True if bytes_array.__len__() > 1 else False
+    
+    # check for midi number to see what set of motors shoudl vibrate
+    def _vibrate_the_motors(self, note, velocity):
+        if Helper.is_in_bass_range(note):
+            self._bass_motors.vibrate(velocity, note)
+        elif Helper.is_in_treble_range(note):
+            self._treble_motors.vibrate(velocity, note)
+        else:
+            self._upper_high_motors.vibrate(velocity, note)
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
     def _get_midi_messages(self):
@@ -59,12 +68,7 @@ class ReadMidi:
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
-                        if Helper.is_in_bass_range(note):
-                            self._bass_motors.vibrate(velocity, note) # the vibration value for now is calculated based in midi note!
-                        elif Helper.is_in_treble_range(note):
-                            self._treble_motors.vibrate(velocity, note) # the vibration value for now is calculated based in midi note!
-                        else:
-                            self._upper_high_motors.vibrate(velocity, note)
+                        self._vibrate_the_motors(note, velocity)
                     else:
                         self._bass_motors.vibrate(0)
                 time.sleep(0.01) # do we need this?
