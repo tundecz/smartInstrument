@@ -30,10 +30,12 @@ class Helper:
     # middle A (69) will be 0.5
     @staticmethod
     def calculate_value_based_on_note(midiNote):
-        if midiNote is constants.MIDDLE_C:
-            return constants.MIDDLE_C_VALUE
+        if midiNote is constants.MIDDLE_A:
+            print("Middle C value {}".format(str(constants.MIDDLE_A_VALUE)))
+            return constants.MIDDLE_A_VALUE
         else:
             vibration_value = Helper._rule_of_3(midiNote)
+            print("Calculated vibration value: {}".format(str(vibration_value)))
             if vibration_value > 1:
                 return 1
             else:
@@ -41,7 +43,7 @@ class Helper:
 
     @staticmethod
     def _rule_of_3(note):
-        return (constants.MIDDLE_C * constants.MIDDLE_C_VALUE)/note
+        return (constants.MIDDLE_A * constants.MIDDLE_A_VALUE)/note
     
     
     
