@@ -48,6 +48,10 @@ class Helper:
     # we consider the bass range to stop at middle C
     @staticmethod
     def is_in_bass_range(midiNumber):
-        return True if midiNumber < 65 else False
+        return True if midiNumber <= constants.MIDDLE_C else False
+
+    @staticmethod
+    def is_in_treble_range(midiNumber):
+        return True if midiNumber >= constants.MIDDLE_C and midiNumber <= 70 else False # need to change 70
     
     

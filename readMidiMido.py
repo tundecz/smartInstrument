@@ -15,6 +15,7 @@ class ReadMidi:
         print(self._midiIn)
         self._bass_motors = VibrationMotor(constants.GPIO_PIN_14_BASS_CLEF)
         self._treble_motors = VibrationMotor(constants.GPIO_PIN_15_TREBLE_CLEF)
+        self._upper_high_motors = VibrationMotor(constants.GPIO_PIN_18_HIGH_NOTES)
 
     @property
     def midiIn(self):
@@ -58,13 +59,15 @@ class ReadMidi:
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
-                        if(Helper.is_in_bass_range(note)):
+                        if Helper.is_in_bass_range(note):
                             self._bass_motors.vibrate(velocity, note) # the vibration value for now is calculated based in midi note!
-                        else:
+                        elif Helper.is_in_treble_range(note):
                             self._treble_motors.vibrate(velocity, note) # the vibration value for now is calculated based in midi note!
+                        else:
+                            self._upper_high_motors.vibrate(velocity, note)
                     else:
                         self._bass_motors.vibrate(0)
-                time.sleep(0.01)
+                time.sleep(0.01) # do we need this?
         except KeyboardInterrupt:
             print('Interrupted from keyboard\n')
         finally:
