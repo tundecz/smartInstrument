@@ -13,7 +13,7 @@ class ReadMidi:
         print("Constructor")
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
-        self._motor = VibrationMotor(constants.GPIO_PIN_14)
+        self._motor = VibrationMotor(constants.GPIO_PIN_14_BASS_CLEF)
 
     @property
     def midiIn(self):
@@ -58,7 +58,7 @@ class ReadMidi:
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
-                        self._motor.vibrate(1,note) # instead of 1, it will be velocity
+                        self._motor.vibrate(velocity,note) # the vibration value for now is calculated based in midi note!
                     else:
                         self._motor.vibrate(0)
                 time.sleep(0.01)

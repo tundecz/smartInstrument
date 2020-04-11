@@ -25,7 +25,7 @@ class VibrationMotor:
             frequency = Helper.convert_midi_number_to_frequency(midiNote)
         except Exception:
             print("Cannot convert to frequency")
-        value = 1 # change this  to calculate from velocity
+        value = Helper.calculate_value_based_on_note(midiNote)
         return frequency, value
     
     # set the value to 0 and frequency to 100
