@@ -13,7 +13,8 @@ class ReadMidi:
         print("Constructor")
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
-        self._motor = VibrationMotor(constants.GPIO_PIN_14_BASS_CLEF)
+        self._bass_motors = VibrationMotor(constants.GPIO_PIN_14_BASS_CLEF)
+        self._treble_motors = VibrationMotor(constants.GPIO_PIN_15_TREBLE_CLEF)
 
     @property
     def midiIn(self):
@@ -50,7 +51,6 @@ class ReadMidi:
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
     def _get_midi_messages(self):
         try:
-            timer = time.time()
             while True:
                 for message in self._midiIn:
                     bytes_array = message.bytes()
@@ -58,9 +58,12 @@ class ReadMidi:
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
-                        self._motor.vibrate(velocity,note) # the vibration value for now is calculated based in midi note!
+                        if(Helper.is_in_bass_range(note)):
+                            self._bass_motors.vibrate(velocity, note) # the vibration value for now is calculated based in midi note!
+                        else:
+                            self._treble_motors.vibrate(velocity, note) # the vibration value for now is calculated based in midi note!
                     else:
-                        self._motor.vibrate(0)
+                        self._bass_motors.vibrate(0)
                 time.sleep(0.01)
         except KeyboardInterrupt:
             print('Interrupted from keyboard\n')

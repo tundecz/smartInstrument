@@ -45,5 +45,9 @@ class Helper:
     def _rule_of_3(note):
         return (constants.MIDDLE_A * constants.MIDDLE_A_VALUE)/note
     
+    # we consider the bass range to stop at middle C
+    @staticmethod
+    def is_in_bass_range(midiNumber):
+        return True if midiNumber < 65 else False
     
     
