@@ -1,7 +1,7 @@
 import mido
 from time import sleep
 import time
-import constants
+from gpioPins import GPIO_PINS
 import logging
 from motorVibration import VibrationMotor
 from helper import Helper
@@ -13,9 +13,9 @@ class ReadMidi:
         print("Constructor")
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
-        self._bass_motors = VibrationMotor(constants.GPIO_PIN_14_BASS_CLEF)
-        self._treble_motors = VibrationMotor(constants.GPIO_PIN_15_TREBLE_CLEF)
-        self._upper_high_motors = VibrationMotor(constants.GPIO_PIN_18_HIGH_NOTES)
+        self._bass_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_CLEF.value)
+        self._treble_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_15_TREBLE_CLEF.value)
+        self._upper_high_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_18_HIGH_NOTES.value)
 
     @property
     def midiIn(self):
@@ -52,10 +52,13 @@ class ReadMidi:
     # check for midi number to see what set of motors shoudl vibrate
     def _vibrate_the_motors(self, note, velocity):
         if Helper.is_in_bass_range(note):
+            print("Bass motor vibration")
             self._bass_motors.vibrate(velocity, note)
         elif Helper.is_in_treble_range(note):
+            print("Treble motor vibration")
             self._treble_motors.vibrate(velocity, note)
         else:
+            print("Upper high motors vibration")
             self._upper_high_motors.vibrate(velocity, note)
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class

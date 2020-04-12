@@ -41,6 +41,7 @@ class Helper:
             else:
                 return vibration_value
 
+    # take a look on github at Tone class for a better representation for the value
     @staticmethod
     def _rule_of_3(note):
         return (constants.MIDDLE_A * constants.MIDDLE_A_VALUE)/note
@@ -50,6 +51,7 @@ class Helper:
     def is_in_bass_range(midiNumber):
         return True if midiNumber <= constants.MIDDLE_C else False
 
+    # treble range  == the range that we play witth our right hands
     @staticmethod
     def is_in_treble_range(midiNumber):
         return True if midiNumber >= constants.MIDDLE_C and midiNumber <= 70 else False # need to change 70
