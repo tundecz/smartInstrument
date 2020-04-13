@@ -60,6 +60,12 @@ class ReadMidi:
         else:
             print("Upper high motors vibration")
             self._upper_high_motors.vibrate(velocity, note)
+    
+    #stop motor vibration when not notes are coming
+    def _stop_motors(self):
+        self._bass_motors.vibrate(0)
+        self._treble_motors.vibrate(0)
+        self._upper_high_motors.vibrate(0)
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
     def _get_midi_messages(self):
@@ -73,7 +79,7 @@ class ReadMidi:
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
                         self._vibrate_the_motors(note, velocity)
                     else:
-                        self._bass_motors.vibrate(0)
+                        self._stop_motors()
                 time.sleep(0.01) # do we need this?
         except KeyboardInterrupt:
             print('Interrupted from keyboard\n')

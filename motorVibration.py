@@ -8,7 +8,7 @@ class VibrationMotor:
     # Constructor
     def __init__(self, gpio):
         self._vibrationMotor = PWMOutputDevice(gpio)
-        print("Hi from the motor constructor. GPIO 14 set.")
+        print("Hi from the motor constructor. GPIO {} set.".format(str(gpio)))
 
     # vibrate the motor with the calculated frequency and value
     def vibrate(self, velocity, midiNote = 0):
