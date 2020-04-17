@@ -16,7 +16,7 @@ class VibrationMotor:
         # it may not work (calculation problems) => more safe this way
         if(midiNote is not constants.NOTE_OFF_VALUE):
             self._set_motor_value_and_frequency(velocity, midiNote)
-            sleep(0.1)
+            sleep(0.1) # try it with 0.01
         else:
            self._set_to_0()
 

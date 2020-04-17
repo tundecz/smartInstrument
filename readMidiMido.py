@@ -5,14 +5,16 @@ from gpioPins import GPIO_PINS
 import logging
 from motorVibration import VibrationMotor
 from helper import Helper
-# from mido.sockets import PortServer, connect
+import tornado
+from constants import HOST, PORT
 
-class ReadMidi:
+
+class ReadMidi():
     
     def __init__(self, port):
-        print("Constructor")
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
+        # set gpio pins
         self._bass_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_CLEF.value)
         self._treble_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_15_TREBLE_CLEF.value)
         self._upper_high_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_18_HIGH_NOTES.value)
@@ -80,7 +82,6 @@ class ReadMidi:
                         self._vibrate_the_motors(note, velocity)
                     else:
                         self._stop_motors()
-                time.sleep(0.01) # do we need this?
         except KeyboardInterrupt:
             print('Interrupted from keyboard\n')
         finally:
