@@ -5,7 +5,7 @@ from gpioPins import GPIO_PINS
 import logging
 from motorVibration import VibrationMotor
 from helper import Helper
-import tornado
+import socket
 from constants import HOST, PORT
 
 
@@ -14,10 +14,15 @@ class ReadMidi():
     def __init__(self, port):
         self._midiIn = mido.open_input(port)
         print(self._midiIn)
+
         # set gpio pins
         self._bass_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_CLEF.value)
         self._treble_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_15_TREBLE_CLEF.value)
         self._upper_high_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_18_HIGH_NOTES.value)
+       
+        # socket settings
+        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.connect((HOST, PORT))
 
     @property
     def midiIn(self):
@@ -69,6 +74,11 @@ class ReadMidi():
         self._treble_motors.vibrate(0)
         self._upper_high_motors.vibrate(0)
 
+    # send the message from the instrument to a server
+    def _send_via_socket(self, ansi_note, velocity):
+         message_to_send_via_socket = "Note %s with %s velocity"%(str(ansi_note), str(velocity))
+        self._socket.send(message_to_send_via_socket.encode())
+
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
     def _get_midi_messages(self):
         try:
@@ -79,6 +89,7 @@ class ReadMidi():
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
+                        self._send_via_socket(ansi_note, velocity)
                         self._vibrate_the_motors(note, velocity)
                     else:
                         self._stop_motors()
@@ -86,6 +97,7 @@ class ReadMidi():
             print('Interrupted from keyboard\n')
         finally:
             self._close_input_port()
+            self._socket.close()
     
     # entry point from main class
     def run(self):
