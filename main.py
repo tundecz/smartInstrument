@@ -16,7 +16,10 @@ def runServer():
  
 if __name__ == "__main__":
     t1 = threading.Thread(target = runMidiReading) #we don't want to execute the function, so don't put ()
-    rt2 = threading.Thread(target = runServer)
+    t2 = threading.Thread(target = runServer)
+
+    t1.start()
+    t2.start()
 
     
     
