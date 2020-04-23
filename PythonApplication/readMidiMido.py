@@ -70,7 +70,7 @@ class ReadMidi():
         self._treble_motors.vibrate(0)
         self._upper_high_motors.vibrate(0)
 
-
+    # we need to check if the event is set, then dequeue and check what command was passed
     def process(self):
         pass
 
