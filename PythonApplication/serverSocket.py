@@ -2,13 +2,15 @@ import socket
 from constants import HOST, PORT
 import asyncore # wrappre over socket
 import constants
+import bridge
 
 class MessageHandler(asyncore.dispatcher):
 
     def __init__(self, conn_sock, client_addr, server):
+        print("In the Message Handler constructor")
         self.server = server
         self.client_addr = client_addr
-        self.buffer = ""
+        # self.buffer = ""
 
         asyncore.dispatcher.__init__(self, conn_sock)
 
@@ -22,11 +24,16 @@ class MessageHandler(asyncore.dispatcher):
 
     def handle_read(self):
         data = self.recv(constants.BUFFER_SIZE)
-        self.buffer += data
+        # self.buffer += data
+        decoded_data = data.decode()
+        bridge.insert_message(decoded_data)
+        # bridge.ev.set() we'll need this
+        print(data.decode())
 
-    def handle_write(self):
-        data = "message" # send message from a queue
-        self.send(data.encode())
+
+    # def handle_write(self):
+    #     data = "message" # send message from a queue
+    #     self.send(data.encode())
 
     def handle_close(self):
         self.close()
@@ -41,6 +48,7 @@ class MessageServer(asyncore.dispatcher):
     def __init__(self, address, handlerClass = MessageHandler):
         self.address = address
         self.handlerClass = handlerClass
+        print("Hello fro the server")
         
         asyncore.dispatcher.__init__(self)
         self.create_socket(self.address_family, self.socket_type)

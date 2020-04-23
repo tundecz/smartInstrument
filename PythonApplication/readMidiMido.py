@@ -6,6 +6,7 @@ import logging
 from motorVibration import VibrationMotor
 from helper import Helper
 from constants import HOST, PORT
+import bridge
 
 
 class ReadMidi():
@@ -68,6 +69,10 @@ class ReadMidi():
         self._bass_motors.vibrate(0)
         self._treble_motors.vibrate(0)
         self._upper_high_motors.vibrate(0)
+
+
+    def process(self):
+        pass
 
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
