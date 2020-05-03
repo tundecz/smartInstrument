@@ -2,7 +2,7 @@ PORT_NAME = 'CH345:CH345 MIDI 1 20:0'
 NOTES = ['c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#', 'a', 'a', 'b']
 
 # client-server stuff
-HOST = '192.168.1.12'
+HOST = '192.168.1.11'
 PORT = 65432
 
 # vibration motor values and frequencies
@@ -14,5 +14,5 @@ MIDDLE_A_VALUE = 0.5
 
 
 # server stuff
-QUEUE_MAX_SIZE = 0
+QUEUE_MAX_SIZE = 1
 BUFFER_SIZE = 1024

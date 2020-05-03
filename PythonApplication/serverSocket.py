@@ -22,6 +22,7 @@ class MessageHandler(asyncore.dispatcher):
     def writable(self):
         return True
 
+    # reads the incomng message from the client
     def handle_read(self):
         data = self.recv(constants.BUFFER_SIZE)
         # self.buffer += data

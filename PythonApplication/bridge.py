@@ -1,9 +1,13 @@
-from queue import Queue
+try:
+    import queue as Queue
+except ImportError:
+    import Queue 
 from constants import QUEUE_MAX_SIZE
 from threading import Event
 
-message_q = Queue(maxsize = QUEUE_MAX_SIZE) # this queue is for when the client sent data to the server
+message_q = Queue.Queue(maxsize = QUEUE_MAX_SIZE)
 ev = Event()
+
 def enqueue_message(message):
     message_q.put(message)
     ev.set()

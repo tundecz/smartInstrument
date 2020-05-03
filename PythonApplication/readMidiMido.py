@@ -7,6 +7,7 @@ from motorVibration import VibrationMotor
 from helper import Helper
 from constants import HOST, PORT
 import bridge
+from messages import MESSAGES, Message
 
 
 class ReadMidi():
@@ -71,8 +72,17 @@ class ReadMidi():
         self._upper_high_motors.vibrate(0)
 
     # we need to check if the event is set, then dequeue and check what command was passed
-    def process(self):
-        pass
+    def _processEvent(self):
+        message = bridge.dequeue_message()
+        print("Message received in the readmidi class {}".format(message))
+        if message is MESSAGES[Message.STOP]:
+            pass
+        elif message is MESSAGES[Message.START]:
+            pass
+        elif message is MESSAGES[Message.RESET]:
+            pass
+        else:
+            pass
 
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
@@ -80,6 +90,8 @@ class ReadMidi():
         try:
             while True:
                 for message in self._midiIn:
+                    if bridge.ev.is_set():
+                        self._processEvent()
                     bytes_array = message.bytes()
                     if(self._is_pressed_note(bytes_array)):
                         note, velocity = self._get_note_and_velocity(bytes_array)
