@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">HapticFeedbackApplication</string>
-    <string name="on_off">On/Off</string>
+    <string name="on_off">Off/On</string>
     <string name="feel_the_music">Feel the music</string>
+    <string name="bass_on_off">Bass</string>
+    <string name="treble_on_off">Treble</string>
+    <string name="high_on_off">High</string>
 </resources>
