@@ -93,8 +93,8 @@ class ReadMidi():
                 pass
             elif value is MESSAGES[Message.OFF]:
                 pass
-        elif note_type is MESSAGES[Message.PROGRESS]
-            progress_value = (int)value
+        elif note_type is MESSAGES[Message.PROGRESS]:
+            progress_value = int(value)
 
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
