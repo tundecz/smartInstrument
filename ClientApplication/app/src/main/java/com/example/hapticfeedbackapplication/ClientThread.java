@@ -1,5 +1,8 @@
 package com.example.hapticfeedbackapplication;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -14,18 +17,15 @@ public class ClientThread implements Runnable {
 
     private Socket socket;
     private BufferedReader bufferedReader;
-    private static final String SERVER_IP = "raspberrypi.local";
+    private static final String SERVER_IP = "localhost";
 
     @Override
     public void run() {
         try {
-         InetAddress servAddrs = InetAddress.getByName(SERVER_IP);
-         socket = new Socket(servAddrs, 65432);
-         if(socket.isBound()){
-
-         }
+//         InetAddress servAddrs = InetAddress.getByName(SERVER_IP);
+         socket = new Socket("192.168.1.5", 8888);
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            System.out.println("Server not found");
         } catch (IOException e) {
             e.printStackTrace();
         }

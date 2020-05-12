@@ -3,18 +3,13 @@ package com.example.hapticfeedbackapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import java.net.Socket;
-
 public class MainActivity extends AppCompatActivity {
 
-    String SERVER_IP;
-    Integer SERVER_PORT;
     Switch onOffSwitch;
     Switch bassOnOffSwitch;
     Switch trebleOnOffSwitch;
@@ -31,12 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initializeVariables();
         setDefaultValues();
-
         clientThread = new ClientThread();
         thread = new Thread(clientThread);
         thread.start();
-
-       // wa want to be on when we start the application
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -58,36 +50,26 @@ public class MainActivity extends AppCompatActivity {
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    Toast.makeText(getApplicationContext(),"on",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getApplicationContext(),"off",Toast.LENGTH_SHORT).show();
-                }
+               if(clientThread != null){
+                  sendMessageToServer(isChecked,"switch",clientThread);
+               }
             }
         });
 
         bassOnOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    if(clientThread != null){
-                        clientThread.sendMessage("on bass");
-                    }
-                }else{
-                    if(clientThread != null){
-                        clientThread.sendMessage("off bass");
-                    }
-                }
+               if(clientThread != null){
+                  sendMessageToServer(isChecked,"bass",clientThread);
+               }
             }
         });
 
         trebleOnOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-
-                }else{
-
+                if(clientThread != null){
+                   sendMessageToServer(isChecked,"treble",clientThread);
                 }
             }
         });
@@ -95,15 +77,11 @@ public class MainActivity extends AppCompatActivity {
         highOnOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-
-                }else{
-
+                if(clientThread != null){
+                  sendMessageToServer(isChecked,"high",clientThread);
                 }
             }
         });
-
-//        new Thread(new ClientThread()).start();
     }
 
     private void initializeVariables(){
@@ -120,5 +98,13 @@ public class MainActivity extends AppCompatActivity {
         trebleOnOffSwitch.setChecked(true);
         highOnOffSwitch.setChecked(true);
         seekBar.setProgress(seekBarProgress);
+    }
+
+    private void sendMessageToServer(boolean isChecked, String type, ClientThread clientThread){
+        if(isChecked){
+            clientThread.sendMessage(type + " on");
+        }else{
+            clientThread.sendMessage(type + " off");
+        }
     }
 }
