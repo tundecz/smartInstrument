@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Toast.makeText(getApplicationContext(),"seekbar progress: " + progress, Toast.LENGTH_SHORT).show();
+                if(clientThread != null){
+                    clientThread.sendMessage(String.valueOf(progress));
+                }
             }
 
             @Override
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                // or we can send the progress here
             }
         });
 
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         bassOnOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                if(clientThread != null){
                   sendMessageToServer(isChecked,"bass",clientThread);
                }
