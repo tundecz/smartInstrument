@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Toast.makeText(getApplicationContext(),"seekbar progress: " + progress, Toast.LENGTH_SHORT).show();
                 if(clientThread != null){
-                    clientThread.sendMessage(String.valueOf(progress));
+                    clientThread.sendMessage("progress " + progress);
                 }
             }
 

@@ -56,4 +56,8 @@ class Helper:
     def is_in_treble_range(midiNumber):
         return True if midiNumber >= constants.MIDDLE_C and midiNumber <= 70 else False # need to change 70
     
-    
+    # operation => on/off
+    # note => bass/treble/high
+    @staticmethod
+    def parse_dequeued_message(message):
+        return message.split()

@@ -1,13 +1,22 @@
 import enum
+import re
 
 class Message(enum.Enum):
-    START = 1
-    STOP = 2
-    RESET = 3
+    ON = 1
+    OFF = 2
+    BASS = 3
+    TREBLE = 4
+    HIGH = 5
+    SWITCH = 6
+    PROGRESS = 7
+    # RESET = 
 
 # enum mapping
 MESSAGES = {
-    Message.START: "start",
-    Message.STOP: "stop",
-    Message.RESET: "reset"
+    Message.ON: "on",
+    Message.OFF: "off",
+    Message.BASS: "bass",
+    Message.TREBLE: "treble",
+    Message.HIGH: "high",
+    Message.PROGRESS: "progress"
 }

@@ -72,17 +72,29 @@ class ReadMidi():
         self._upper_high_motors.vibrate(0)
 
     # we need to check if the event is set, then dequeue and check what command was passed
+    # note_type = bass/treble/high/value
+    # value = on/off/integer
     def _processEvent(self):
         message = bridge.dequeue_message()
+        note_type, value = Helper.parse_dequeued_message(message)
         print("Message received in the readmidi class {}".format(message))
-        if message is MESSAGES[Message.STOP]:
-            pass
-        elif message is MESSAGES[Message.START]:
-            pass
-        elif message is MESSAGES[Message.RESET]:
-            pass
-        else:
-            pass
+        if note_type is MESSAGES[Message.BASS]:
+            if value is MESSAGES[Message.ON]:
+                pass
+            elif value is MESSAGES[Message.OFF]:
+                pass
+        elif note_type is MESSAGES[Message.TREBLE]:
+            if value is MESSAGES[Message.ON]:
+                pass
+            elif value is MESSAGES[Message.OFF]:
+                pass
+        elif note_type is MESSAGES[Message.HIGH]:
+            if value is MESSAGES[Message.ON]:
+                pass
+            elif value is MESSAGES[Message.OFF]:
+                pass
+        elif note_type is MESSAGES[Message.PROGRESS]
+            progress_value = (int)value
 
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
