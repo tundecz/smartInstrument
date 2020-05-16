@@ -5,4 +5,5 @@
     <string name="bass_on_off">Bass</string>
     <string name="treble_on_off">Treble</string>
     <string name="high_on_off">High</string>
+    <string name="reset_all">Reset</string>
 </resources>

@@ -3,6 +3,8 @@ package com.example.hapticfeedbackapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Switch trebleOnOffSwitch;
     Switch highOnOffSwitch;
     SeekBar seekBar;
+    Button resetButton;
     int seekBarProgress = 50;
 
     ClientThread clientThread;
@@ -86,6 +89,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDefaultValues();
+                if(clientThread != null){
+                    clientThread.sendMessage("reset all");
+                }
+            }
+        });
     }
 
     private void initializeVariables(){
@@ -94,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         trebleOnOffSwitch = findViewById(R.id.treble_on_off_switch);
         highOnOffSwitch = findViewById(R.id.high_on_off_switch);
         seekBar = findViewById(R.id.seek_bar);
+        resetButton = findViewById(R.id.reset_all);
     }
 
     private void setDefaultValues(){
@@ -111,4 +125,5 @@ public class MainActivity extends AppCompatActivity {
             clientThread.sendMessage(type + " off");
         }
     }
+
 }

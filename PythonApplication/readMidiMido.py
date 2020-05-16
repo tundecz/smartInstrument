@@ -5,7 +5,7 @@ from gpioPins import GPIO_PINS
 import logging
 from motorVibration import VibrationMotor
 from helper import Helper
-from constants import HOST, PORT
+from constants import HOST, PORT, DEFAULT_VALUE_FOR_SLIDER
 import bridge
 from messages import MESSAGES, Message, DEFAULT_VALUES
 
@@ -112,7 +112,7 @@ class ReadMidi():
         DEFAULT_VALUES[Message.TREBLE] = True
         DEFAULT_VALUES[Message.HIGH] = True
         DEFAULT_VALUES[Message.SWITCH] = True
-        DEFAULT_VALUES[Message.PROGRESS] = 0,5
+        DEFAULT_VALUES[Message.PROGRESS] = DEFAULT_VALUE_FOR_SLIDER
 
 
     # get the midi messages from the piano, convert them into bytes and send information to Vibration class
