@@ -57,13 +57,16 @@ class ReadMidi():
     def _vibrate_the_motors(self, note, velocity):
         if Helper.is_in_bass_range(note):
             print("Bass motor vibration")
-            self._bass_motors.vibrate(velocity, note)
+            if DEFAULT_VALUES[Message.BASS] is True:
+                self._bass_motors.vibrate(velocity, note)
         elif Helper.is_in_treble_range(note):
             print("Treble motor vibration")
-            self._treble_motors.vibrate(velocity, note)
+            if DEFAULT_VALUES[Message.TREBLE] is True:
+                self._treble_motors.vibrate(velocity, note)
         else:
             print("Upper high motors vibration")
-            self._upper_high_motors.vibrate(velocity, note)
+            if DEFAULT_VALUES[Message.HIGH] is True:
+                self._upper_high_motors.vibrate(velocity, note)
     
     #stop motor vibration when not notes are coming
     def _stop_motors(self):
@@ -124,7 +127,8 @@ class ReadMidi():
                         note, velocity = self._get_note_and_velocity(bytes_array)
                         ansi_note = Helper.number_to_note(note)
                         print("Note %s pressed with %d velocity" %(ansi_note, velocity))
-                        self._vibrate_the_motors(note, velocity)
+                        if DEFAULT_VALUES[Message.SWITCH] is True: # for the case when the user stop or starts the device
+                            self._vibrate_the_motors(note, velocity)
                     else:
                         self._stop_motors()
         except KeyboardInterrupt:
