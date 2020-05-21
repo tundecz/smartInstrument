@@ -28,7 +28,7 @@ class MessageHandler(asyncore.dispatcher):
         # self.buffer += data
         decoded_data = data.decode()
         bridge.enqueue_message(decoded_data)
-        print(data.decode())
+        # print(data.decode())
 
 
     # def handle_write(self):

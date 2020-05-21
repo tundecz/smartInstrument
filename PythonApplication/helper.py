@@ -28,6 +28,8 @@ class Helper:
             pass
 
     # middle A (69) will be 0.5
+    # need to add here the value changer
+    # if value < 0.5 or value > 0.5, scale the vibration value
     @staticmethod
     def calculate_value_based_on_note(midiNote):
         if midiNote is constants.MIDDLE_A:

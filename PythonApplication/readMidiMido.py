@@ -55,6 +55,7 @@ class ReadMidi():
     
     # check for midi number to see what set of motors shoudl vibrate
     def _vibrate_the_motors(self, note, velocity):
+        print("Bug verification " + str(note))
         if Helper.is_in_bass_range(note):
             print("Bass motor vibration")
             if DEFAULT_VALUES[Message.BASS] is True:
@@ -83,29 +84,30 @@ class ReadMidi():
         message = bridge.dequeue_message()
         note_type, value = Helper.parse_dequeued_message(message)
         print("Message received in the readmidi class {}".format(message))
-        if note_type is MESSAGES[Message.SWITCH]:
+        if note_type == MESSAGES[Message.SWITCH]:
            self._setValues(value, Message.SWITCH)
-        elif note_type is MESSAGES[Message.BASS]:
+        elif note_type == MESSAGES[Message.BASS]:
             self._setValues(value, Message.BASS)
-        elif note_type is MESSAGES[Message.TREBLE]:
+        elif note_type == MESSAGES[Message.TREBLE]:
             self._setValues(value, Message.TREBLE)
-        elif note_type is MESSAGES[Message.HIGH]:
+        elif note_type == MESSAGES[Message.HIGH]:
             self._setValues(value, Message.HIGH)
-        elif note_type is MESSAGES[Message.PROGRESS]:
+        elif note_type == MESSAGES[Message.PROGRESS]:
+            # need to convert because value is a string
             progress_value = int(value)
             DEFAULT_VALUES[Message.PROGRESS] = progress_value
-        elif note_type is MESSAGES[Message.RESET]:
+        elif note_type == MESSAGES[Message.RESET]:
             self._resetToDefaultValues()
             
 
     # set the values for DEFAULT_VALUE dictionary based on message got from Android application
     def _setValues(self, value, switch_type):
-        if value is MESSAGES[Message.ON]:
+        print("In the set values method")
+        print(str(value) + str(switch_type))
+        if value == MESSAGES[Message.ON]:
             DEFAULT_VALUES[switch_type] = True
-            print(str(DEFAULT_VALUES[switch_type]) + "changed to true")
-        elif value is MESSAGES[Message.OFF]:
+        elif value == MESSAGES[Message.OFF]:
             DEFAULT_VALUES[switch_type] = False
-            print(str(DEFAULT_VALUES[switch_type]) + "changed to false")
 
     def _resetToDefaultValues(self):
         DEFAULT_VALUES[Message.BASS] = True
