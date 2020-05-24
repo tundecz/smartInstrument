@@ -1,6 +1,7 @@
 import math
 import constants
 from gpiozero.tones import Tone
+from messages import DEFAULT_VALUES, Message
 
 class Helper:
 
@@ -32,16 +33,47 @@ class Helper:
     # if value < 0.5 or value > 0.5, scale the vibration value
     @staticmethod
     def calculate_value_based_on_note(midiNote):
-        if midiNote is constants.MIDDLE_A:
-            print("Middle C value {}".format(str(constants.MIDDLE_A_VALUE)))
-            return constants.MIDDLE_A_VALUE
-        else:
-            vibration_value = Helper._rule_of_3(midiNote)
-            print("Calculated vibration value: {}".format(str(vibration_value)))
-            if vibration_value > 1:
-                return 1
+        if DEFAULT_VALUES[Message.PROGRESS] != 50:
+            changed_amount = Helper._calculate_additional_progress()
+            if midiNote == constants.MIDDLE_A:
+                return constants.MIDDLE_A_VALUE + changed_amount
             else:
-                return vibration_value
+                vibration_value = Helper._rule_of_3(midiNote)
+                vibration_value += changed_amount
+                print("Calculated vibration value: {}".format(str(vibration_value)))
+                if vibration_value > 1:
+                    return 1
+                else:
+                    return vibration_value
+        else:
+            if midiNote == constants.MIDDLE_A:
+                print("Middle C value {}".format(str(constants.MIDDLE_A_VALUE)))
+                return constants.MIDDLE_A_VALUE
+            else:
+                vibration_value = Helper._rule_of_3(midiNote)
+                print("Calculated vibration value: {}".format(str(vibration_value)))
+                if vibration_value > 1:
+                    return 1
+                else:
+                    return vibration_value
+
+
+    # calculates the vibration value based on user progress input
+    # explenation : the middle of the slider is 50
+    # if we move it up to 60, it means we moved it up with 10 values
+    # if we move it down to 40, we also moved it 10 values
+    # we know that if we move it up to 100, we moved it up 50 values
+    # the max values for the change will be 0.2
+    # so if 50 is 0.2 then changed_amount will be the new value
+    # if <, we return it with -, because we have to substract 
+    @staticmethod
+    def _calculate_additional_progress():
+        if DEFAULT_VALUES[Message.PROGRESS] < 50:
+            changed_amount = 50 - DEFAULT_VALUES[Message.PROGRESS]
+            return -((changed_amount * constants.MAX_MIN_PROGRESS_VALUE)/constants.DEFAULT_VALUE_FOR_SLIDER)
+        elif DEFAULT_VALUES[Message.PROGRESS] > 50:
+            changed_amount = DEFAULT_VALUES[Message.PROGRESS]
+            return ((changed_amount * constants.MAX_MIN_PROGRESS_VALUE)/constants.DEFAULT_VALUE_FOR_SLIDER)
 
     # take a look on github at Tone class for a better representation for the value
     @staticmethod

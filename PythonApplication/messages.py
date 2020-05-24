@@ -33,5 +33,5 @@ DEFAULT_VALUES = {
     Message.BASS: True,
     Message.TREBLE: True,
     Message.HIGH: True,
-    Message.PROGRESS: 0.5
+    Message.PROGRESS: 50
 }

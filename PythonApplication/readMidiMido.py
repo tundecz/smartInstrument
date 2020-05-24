@@ -95,6 +95,7 @@ class ReadMidi():
         elif note_type == MESSAGES[Message.PROGRESS]:
             # need to convert because value is a string
             progress_value = int(value)
+            print(progress_value)
             DEFAULT_VALUES[Message.PROGRESS] = progress_value
         elif note_type == MESSAGES[Message.RESET]:
             self._resetToDefaultValues()
