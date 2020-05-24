@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setDefaultValues();
+                resetValues();
                 if(clientThread != null){
                     clientThread.sendMessage("reset all");
                 }
@@ -112,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDefaultValues(){
         onOffSwitch.setChecked(true);
+        bassOnOffSwitch.setChecked(true);
+        trebleOnOffSwitch.setChecked(true);
+        highOnOffSwitch.setChecked(true);
+        seekBar.setProgress(seekBarProgress);
+    }
+
+    private void resetValues() {
         bassOnOffSwitch.setChecked(true);
         trebleOnOffSwitch.setChecked(true);
         highOnOffSwitch.setChecked(true);

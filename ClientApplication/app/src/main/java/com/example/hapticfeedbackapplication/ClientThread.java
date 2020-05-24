@@ -23,7 +23,8 @@ public class ClientThread implements Runnable {
     public void run() {
         try {
 //         InetAddress servAddrs = InetAddress.getByName(SERVER_IP);
-         socket = new Socket("192.168.1.5", 8888);
+         socket = new Socket("192.168.1.12", 65432);
+         Log.d("socket","Socket binded");
         } catch (UnknownHostException e) {
             System.out.println("Server not found");
         } catch (IOException e) {
