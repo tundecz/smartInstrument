@@ -1,0 +1,55 @@
+\documentclass[a4paper, 12pt, titlepage]{article}
+\usepackage{indentfirst}
+\renewcommand*\contentsname{Cuprins}
+\renewcommand\refname{}
+\renewcommand{\figurename}{Figura}
+\usepackage{subfiles}
+\usepackage{url}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{wrapfig}
+\graphicspath{{./images/}}
+
+\title{Haptic feedback in Internet of musical things}
+\author{Czoguly Tünde}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Introducere}
+\subfile{chapters/introducere}
+
+\newpage
+
+\section{Tehnologii hardware folosite}
+\subfile{chapters/hardware}
+
+\newpage
+
+\section{Tehnologii software folosite}
+\subfile{chapters/software}
+
+\newpage
+
+\section{Prezentarea aplicației}
+\subsection{Aplicația RaspberryPi}
+\subsubsection{Prezentare dispozitiv purtabil}
+\subsection{Aplicația Android}
+\subsubsection{Prezentare UI}
+
+\newpage
+
+\section{Concluzii}
+
+\newpage
+
+\section{Bibliogragie si webografie}
+\bibliography{db}
+\bibliographystyle{plain}
+\end{document}
