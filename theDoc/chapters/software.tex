@@ -1,7 +1,7 @@
 \documentclass[../IoMusT.tex]{subfiles}
 \begin{document}
 \subsection{Sistemul de operare Raspbian}
-
+Raspbian este un sistem de operare pentru placa de dezvoltare Rasberry Pi, bazat pe Debian, o distribuție a sistemului de operare Linux.
 \subsection{Protocolul de comunicare MIDI}
 \subsubsection{Prezentarea mesajelor MIDI}
 % reformulare tastatura
@@ -44,8 +44,56 @@ Gpiozero este o bibliotecă care oferă o interfață simplă pentru programarea
 \caption{Importare biblioteca Gpiozero}
 \label{fig:import}
 \end{figure}
-Constructorul acestei clase are mai mulți parametrii, majoritatea dintre ei fiind setate în mod implicit. Singurul parametru obligatoriu este numărul pinului cu care dorim să lucrăm. Trebuie avut grijă pentru că numerotarea pinurilor de pe RaspberryPi se poate face in mai multe feluri, însă biblioteca Gpiozero folosește implicit numerotarea Broadcom.
+În momentul instanțierii clasei, în constructor putem da de la unu pana la cinci parametrii, numai primul fiind obligatori, celelalte având deja valorile setate implicit. Parametrul obligatoriu este numărul pinului de pe Raspberry Pi cu care lucrăm. Numerotarea pinurilor în cazul acestei biblioteci se face cu ajutorul sistemului Broadcom. Ceilalți parametrii ai constructorului sunt pentru a seta valoarea de început (duty cycle), frecvența, dacă să fie activ sau nu și nu în ultimul rând putem schimba fabricii de pini, asta fiind o caracteristică avansată pe care majoritatea utilizatorilor o pot ignora. Un exemplu de instanțiere a acestei clase se poate vedea în figura \ref{fig:constructor}, unde parametrul gpio indică numărul pinului setat. .
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.9]{constructorPWM}
+\caption{PWMOutputDevice constructor}
+\label{fig:constructor}
+\end{figure}
+\\
+%completare ce este duty cycle
+\par Datoriă faptului că clasa permite modularea lățimii pulsurilor, se pot seta intensități între valorile 1 și 0, 1 fiind intensitatea maximă cu care motorul poate să vibreze și 0 fiind starea în care se oprește din vibrat. Totodată se poate seta și frecvența, aceasta implicit fiind 100Hz, numărul acesta indicând rata de apariție a unui eveniment repetitiv \cite{Freq}. Exemplu de setare a acestor valori poate fi observat în figura \ref{fig:val}. Clasa dispune mai multe metode și proprietăși cu ajutorul cărora putem porni sau opri dispozitivul. În cazul nostru este deajuns să setăm proprietățile value și frequency pentru a da drumul sau a opri vibrațiile. 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1.1]{setareValori}
+\caption{Setarea valorilor motorului}
+\label{fig:val}
+\end{figure}
+\\
+\par Biblioteca Gpiozero pune la dispoziție și o clasă Tone destinată utilizatorilor care folosesc TonalBuzzer pentru a putea reprezenta cu ușurință notele muzicale. Cu toate că în proiectul de față nu este folosit un astfel de dispozitiv, clasa asta ne poate deveni în ajutor la calcularea frecvențelor pornind de la numărul notei MIDI transmis de pian. Datorită faptului că clasa poate fi construită într-o varietate de moduri, asta incluzând și prin numere MIDI, se poate cu ușurință obține frecvența notei respective cu ajutorul atributului frequency. Codul din spatele clasei calculează frecvența cu formula
+\[ f = 2^{(d-69)/12} * 440Hz\]
+unde parametrul d reprezintă numărul notei muzicale MIDI. Pe lângă nota MIDI, clasa se poate construi pornind și de la frecvență sau de la specificarea notei prin sistemul alfabetic (acesta consistând dintr-o literă majusculă de la A până la G urmat de un modificator opțional și numărul de octave). Folosirea acestei clase se poate vedea în figura \ref{fig:tone}.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.9]{tone}
+\caption{Calcularea frecvenței}
+\label{fig:tone}
+\end{figure}
+
 \subsubsection{Folosirea bibliotecii Mido}
+Parsarea și reprezentarea datelor primite de la instrumentul muzical este un pas important în ceea ce privește rularea acestui proiect. Din fericire limbajul de programare Python ne oferă mai multe posibilități prin care putem să ajungem la același rezultat, depinde doar de noi cu ce vrem să lucrăm și care modalitate se potrivește task-ului respectiv. Pentru citirea, parsarea și modificare mesajelor/fișierelor MIDI există mai multe tipuri de biblioteci, fiecare făcând în mare parte același lucru, cu puține diferențe. Biblioteca cu care s-a lucrat în acest proiect se numește Mido și datorită documentației bine pusă la punct este relativ ușor de urmărit ce metode/funcționalități are. Pe parcursul dezvoltării proiectului am încercat să lucrez cu mai multe astfel de tipuri de biblioteci, însă cele mai multe s-au dovedit a fi mai greu de folosit, ducănd lipsă de funcționalități sau având numai metodele minime necesare.
+\\
+\par Instalarea bibiotecii pe sistemul de operare Raspbian se face cu executarea comenzii pip install mido, iar pentru utilizarea porturilor trebuie instalată și biblioteca rtmidi cu ajutorul comenzii pip install python-rtmidi. Rtmidi este backend-ul folosit în mod implicit care se poate schimba cu altele, cum ar fi PortMidi sau Pygame. Este recomandat să se foloseasă rtmidi din datorită faptului că este mult mai ușor de instalat și are toate caracteristicile celorlalte biblioteci. 
+\\
+\par Pentru a putea primi date de la pian, trebuie deschis un port de intrare specificând numele portului respectiv (a se vedea figura \ref{fig:port}).
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1.1]{midoPort}
+\caption{Port de intrare}
+\label{fig:port}
+\end{figure}
+ Pentru a putea găsi numele portului există metoda \verb|mido.get_input_names()| a bibliotecii, care afișează toate proturile disponibile. Sunt incluse și alte tipuri de porturi în bibliotecă înafară de cele de intrare și de ieșire, precum multi portul care ne permite să citim și să scriem mesaje pe mai multe porturi, SocketPort-ul sau IOPort-ul care este o combinație între cel de intrare și ieșire. După nevoi se pot implementa și altfel de tipuri.
+\\
+\par Mesajele MIDI vor veni pe acest port deschis iar în funcție de arhitectura instrumentului muzical acestea pot veni fără întreruperi, asta însemnând că programul primește date chiar și atunci când nicio o tastă nu a fost apărată pe pian, sau pot veni doar doar când a fost cântată o notă muzicală. În funcție de asta poate fi implementată metoda de parsare a acestor mesaje. În cazul nostru pianul trimite date încontinuu asta însemnând că vor trebui selectate mesajele de care suntem interesate. Iterarea peste mesaje se întâmplă cu ajutorul unui for până când portul se va închide. Pentru o parsare mai ușoară, mesajele de intrare vor fi mai întâi convertate la octeți MIDI ceea ce înseamnă că mai departe se va lucra cu un vector de valori, fiecare valoare corespându-se cu un parametru a notei MIDI respective. Un exemplu de astfel de parsare se poate vedea în figura \ref{fig:midiPars}. 
+\begin{figure}[h]
+\centering
+\includegraphics{parsareMIDI}
+\caption{Citire mesaje MIDI}
+\label{fig:midiPars}
+\end{figure}
+% see if we need anything here
+Vectorul găsit conține 3 parametrii printre care ultimele două indică valoarea notei MIDI respectiv puterea cu care acesta a fost cântat/apăsat. Biblioteca mido suportă majoritatea tipurilor de mesaje descrise în prezentarea mesajelor MIDI. 
 \subsubsection{Programarea asincrona cu biblioteca Asyncore}
 
 \subsection{Limbajul de programare Java}
