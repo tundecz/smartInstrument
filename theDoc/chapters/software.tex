@@ -1,7 +1,9 @@
 \documentclass[../IoMusT.tex]{subfiles}
 \begin{document}
 \subsection{Sistemul de operare Raspbian}
-Raspbian este un sistem de operare pentru placa de dezvoltare Rasberry Pi, bazat pe Debian, o distribuție a sistemului de operare Linux.
+Raspbian este un sistem de operare pentru placa de dezvoltare Rasberry Pi, bazat pe Debian, numele lui venind din combinația cuvintelor Raspberry și Debian. Sunt mai multe versiuni a acestui sistem de perare, ultimul fiind Buster care e compatibil cu toate modelele de Rasperry Pi. Cu toate că a fost creat special pentru acestă placă, este funcțional și pentru sistemele non-Raspberry Pi, fiind dezvoltat pentru arhitecturi de microprocesoare de tip RISC \footnote{Reduced Instruction Set Computer}. Instalarea sistemlui de operație se face relaitv ușor. După descărcarea imaginii și scrierea lui pe card, tot ce trebuie făcut este să butăm placa de dezvoltare. 
+\\
+\par Dacă utilizăm protocolul Secure Shell pentru a avea acces în sistemul lui Raspberyy Pi, ne dăm seam cu ușurință că sistemul fișierelor eset asemănător cu cel de la sistemul de oprare Linux (mai preic Debian). După butarea plăcii, folderul î care suntem este mereu \verb|/home/pi|. De aici putem naviga în directoarele Desktop șamd. 
 \subsection{Protocolul de comunicare MIDI}
 \subsubsection{Prezentarea mesajelor MIDI}
 % reformulare tastatura
@@ -13,7 +15,7 @@ Comunicarea între un instrument muzical electric și un calculatori se întâmp
 \par Parametrii unui mesaj MIDI, după cum s-a discutat și în primul paragraf, pot conține nota muzicală și velocitatea cu care aceasta a fost cântată. Reprezentarea acestei note muzicale se face printr-un număr de la 0 pana 127 \cite{MidiSoftware}, 0 fiind nota cea mai joasă cu cea mai mică frecvență. Astfel de exemplu numărul 60 se asociază notei Do cu frecvența 261.63. Puterea cu care nota respectivă a fost apăsată se caracterizează printr-un număr de la 1 la 127 \cite{MidiSoftware}, o apăsare decentă (fără prea multă forță) fiind aproximativ 64. Datorită faptului că pianul folosit în acest proiect are o reprezentare imprecisă a acestui număr, în aplicație ne vom folosi numai numărul notei MIDI din care vom calcula frecvența, folosind o formulă, cu care trebuie să vibreze motoarele când o clapă e apăsată. Când vine vorba despre programarea acestor mesaje, modul în care sunt reprezentate depinde de librăria folosită în limbajul de programare respectiv. Despre parsarea acestora vom detalia în subcapitolele ce urmează.
 
 \subsection{Limbajul de programare Python}
-\subsection{Prezentare generală}
+\subsubsection{Prezentare generală}
 Python este un limbaj de programare devenit foarte popular datorită faptului că este proiectat să fie ușor de învățat și de înțeles. Este un limbaj de scriptare ceea ce înseamnă că codul scris nu este compilat ci mai degrabă interpretat. Ca și celelalte limbaje de nivel înalt și Python suportă mai multe paradigme de programare cum ar fi programare procedurală, orientată pe obiect sau funcțională sprijinind astfel dezvoltarea unei game largi de aplicații. Poate fi folosit atât pentru realizarea proiectelor de dimensiuni mai mici cât și pentru cele mai mari, fiind cel mai des utilizat în crearea aplicațiilor web (este folosit de companiile Google și Yahoo!), științifice sau de divertisment, cum ar fi jocuri. Este foarte mult folosit și în proiectele ce țin de Internetul lucrurilor, având destule biblioteci ce pot fi folosite pentru programarea senzorilor și actuatorilor.
 \\
 \par Faptul că limbajul de programare Python oferă o gamă largă de biblioteci și extinderi, constituie un avantaj în programarea aplicațiilor complexe. Biblioteca standard a limbajului este deseori citat și ca unul dintre cele mai mari puncet forte ale sale, oferind multe tool-uri pentru difeite sarcini.
@@ -30,10 +32,15 @@ O scăderii  a indentării  seminfică sfârșitul unui bloc curent în timp ce 
 \par În Python, ca și în celelalte limbaje de programare, putem face diferența dintre o metodă și o funcție. Ambele trebuie să înceapă cu cuvântul cheie def urmat de denumirea funcției/metodei. Spre deosebire de alte limbaje de programare, în cazul metodelor în Python trebuie specificat explicit cuvântul self în parametrii metodei. Acest cuvânt indică instanța clasei de care aparține metoda respectivă.
 % include duck typing
 
-% include image from pinout
 % add cleanup
 \subsubsection{Biblioteca Gpiozero pentru programarea pinurilor}
-Gpiozero este o bibliotecă care oferă o interfață simplă pentru programarea GPIO-urilor de pe placa de dezvoltare Raspberry Pi. Spre deosebire de alte biblioteci, aceasta oferă o curbă de învățare mai lină pentru începători și posibilitatea dezvoltării proiectelor complicate cu mai multă ușurință și mai puține linii de cod. La început Gpiozero a fost doar un layout peste biblioteca RPi.GPIO, ulterior fiind adăugate diferite suporturi. În prezent RPi.GPIO este folosit ca bibliotecă implicită pentru Gpiozero, această configurație putând fii schimbată, existând ma multe astfel de biblioteci, cum ar fi de exemplu pigpio. Instalarea acestei biblioteci este necesară numai în cazul în care se folosește pe alt sistem de operare decât Raspbian, pe acesta fiind deja inclus. Odată cu instalarea ei putem rula comanda pinout din linia de comandă pentru a vedea vizual detalii despre pinii disponibili de pe Raspberry Pi. Acest lucru devine în ajutor în momentul în care, la configurarea pinurilor, trebuie să precizăm numărul pinului ales astfel fiind mult mai ușor de urmat poziționarea fiecărui pin în parte.
+Gpiozero este o bibliotecă care oferă o interfață simplă pentru programarea GPIO-urilor de pe placa de dezvoltare Raspberry Pi. Spre deosebire de alte biblioteci, aceasta oferă o curbă de învățare mai lină pentru începători și posibilitatea dezvoltării proiectelor complicate cu mai multă ușurință și mai puține linii de cod. La început Gpiozero a fost doar un layout peste biblioteca RPi.GPIO, ulterior fiind adăugate diferite suporturi. În prezent RPi.GPIO este folosit ca bibliotecă implicită pentru Gpiozero, această configurație putând fii schimbată, existând ma multe astfel de biblioteci, cum ar fi de exemplu pigpio. Instalarea acestei biblioteci este necesară numai în cazul în care se folosește pe alt sistem de operare decât Raspbian, pe acesta fiind deja inclus. Odată cu instalarea ei putem rula comanda pinout din linia de comandă pentru a vedea vizual detalii despre pinii disponibili de pe Raspberry Pi (vezi figura \ref{fig:pinout}). Acest lucru devine în ajutor în momentul în care, la configurarea pinurilor, trebuie să precizăm numărul pinului ales astfel fiind mult mai ușor de urmat poziționarea fiecărui pin în parte.
+\begin{figure}[h]
+\centering
+\includegraphics{pinout1}
+\caption{Poziționarea pinurilor}
+\label{fig:pinout}
+\end{figure}
 \\
 \par În comparație cu alte biblioteci, în Gpiozero se pote observa o abordare orientată pe obiecte, acesta folosind clase în loc de funcții. Pe lângă niște clase specifice, Gpiozero oferă două clase mari de bază, InputDevice și OutputDevice, celelalte fiind derivate din acestea, fiecare având metode și proprietăți specifice care sunt adaptate dispozitivului controlat. Clasa OutputDevices și tot ce derivă din ea este folosită pentru controlarea dispozitivelor de ieșire cum ar fi de exemplu LED-urile, pe când cea de InputDevice este pentru dispozitivele care sunt folosite pentru a furniza date și semnale de control. Asftel alegerea clasei de lucru este mult mai vizibilă și mult mai ușoară.
 \\
@@ -85,18 +92,50 @@ Parsarea și reprezentarea datelor primite de la instrumentul muzical este un pa
 \end{figure}
  Pentru a putea găsi numele portului există metoda \verb|mido.get_input_names()| a bibliotecii, care afișează toate proturile disponibile. Sunt incluse și alte tipuri de porturi în bibliotecă înafară de cele de intrare și de ieșire, precum multi portul care ne permite să citim și să scriem mesaje pe mai multe porturi, SocketPort-ul sau IOPort-ul care este o combinație între cel de intrare și ieșire. După nevoi se pot implementa și altfel de tipuri.
 \\
+% add 255
 \par Mesajele MIDI vor veni pe acest port deschis iar în funcție de arhitectura instrumentului muzical acestea pot veni fără întreruperi, asta însemnând că programul primește date chiar și atunci când nicio o tastă nu a fost apărată pe pian, sau pot veni doar doar când a fost cântată o notă muzicală. În funcție de asta poate fi implementată metoda de parsare a acestor mesaje. În cazul nostru pianul trimite date încontinuu asta însemnând că vor trebui selectate mesajele de care suntem interesate. Iterarea peste mesaje se întâmplă cu ajutorul unui for până când portul se va închide. Pentru o parsare mai ușoară, mesajele de intrare vor fi mai întâi convertate la octeți MIDI ceea ce înseamnă că mai departe se va lucra cu un vector de valori, fiecare valoare corespându-se cu un parametru a notei MIDI respective. Un exemplu de astfel de parsare se poate vedea în figura \ref{fig:midiPars}. 
 \begin{figure}[h]
 \centering
-\includegraphics{parsareMIDI}
+\includegraphics[scale=0.9]{parsareMIDI}
 \caption{Citire mesaje MIDI}
 \label{fig:midiPars}
 \end{figure}
-% see if we need anything here
 Vectorul găsit conține 3 parametrii printre care ultimele două indică valoarea notei MIDI respectiv puterea cu care acesta a fost cântat/apăsat. Biblioteca mido suportă majoritatea tipurilor de mesaje descrise în prezentarea mesajelor MIDI. 
+
 \subsubsection{Programarea asincrona cu biblioteca Asyncore}
+Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețetea este comunicare prin sockets. În Python socket-urile sunt obiecte care oferă o modalitate de schimb de informații între două procese între-o manieră directă și independentă de platformă. Aceștia pot fi implementate pe mai multe tipuri de canale diferite cum ar fi TCP\footnote{Transmission Control Protocol} sau UDP\footnote{User Datagram Protocol}. Varianta cea mai de încredere este utilizarea protocolului TCP, care este și cel utilizat în mod implicit, datorită faptului că pachtele aruncate în rețea sunt detectate și retransmise de expeditor și datele sunt citite în ordinea trimiterilor lor. E important să ținem cont de acest lucru datoriă faptului că nu există nicio garanție ca datele trimise să ajungă la destinație. Cele mai comune aplicații cu socket-uri sunt cele de tipuri client-server, unde clientul trimite date către server iar serverul le procesează. Trimiterea acestor mesaje poate fi și una bi-direcțională cum va fi și în cazul nostru. Atât clientul cât și serveril vor trimite date între ele.
+\\
+\par În limbajul de programare Python aceste socket-uri pot fi implementate cu ajutorul modulului socket, care oferă o interfață de programare a aplicației convenabilă și consistentă. Modul în care aceste socket-uri funcționează este în felul următor: serverul crează un socket, legându-se la o adresă și un port, care va asculat conexiunile de la client la adresa respectovă. Îndată ce un client socket, cu aceeași adresă și port s-a concetat la server se poate începe trimiterea de date. La sfârșit, după ce s-a încheiat tot procesul, clientul poate închide conexiunea cu serverul printr-o simplă metodă \verb|socket.close()|, după care se închide și partea de server.
+\\
+\par Crearea unui server simplu este ușor de realizat în Python, nefiind atăt de multe metode ce trebuie utilizate. Când vine vorba despre trimiterea datelor către un client la un anumit timp (când sunt disponibile) este mult mai ușor și avantajos de folosit modulul Asyncore, care ne oferă, pe lângă o implementare reactivă a unui socket, posibilitatea de a avea un program asincron ceea ce poate fi un avantaj mare mai ales când avem mai multe socket-uri deschise. Asyncorel ne oferă o infrastructură de bază pentru scrierea socket-urilor de client și server. Astfel programatorul are posibilitatea de a scrie cod care se apelează numai atunci când trebuie să se întâmple ceva (să se trimite sau să se primească anumite date) în loc de a apela metode și de acreea obiecte de tip socket. Ideea de bază în spatele acestui modul este de a crea unul sau mai multe instanțe de clase \verb|asyncore.dispatcher|. Fiecare astfel de canal de rețea creat se adaugă la o hartă globală care eset folosită de funția \verb|loop()|. Apelarea acestei metode \verb|loop()| activează aceste canale, care rulează până când ultimul canal a fost închis.
+\\
+\par În acest proiect s-au folosit două clase de dispatcher, unul pentru ascultarea socket-ului și unul pentru canalul de client, de unde se vor apela metodele de trimitere și de primire a mesajelor. Implementarea acestor clase se face prin suprascrierea a câtorva metoda care vor manipula acțiunile necesare. Se va apela metoda \verb|handle_accept()| (vezi figura \ref{fig:accept}) când se face o cerere de conectare de la socket-ul client. Aici se va crea o instanță nouă de clasă dispatcher pentru se vor manevra mesajele. Constructorul acestei clase de MessageHandler are ca parametrii un obiect socket care reprezintă conexiunea, adresa clientului conectat și o instanță a clasei de server din care se pornește conexiunea.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1.1]{handleAccept}
+\caption{Handle accept}
+\label{fig:accept}
+\end{figure}
+\\
+\par Pentru trimiterea datelor din serverul de socket către client framework-ul asyncore are implementat o metodă \verb|writable()| care verifică dacă este de trimis un mesaj, acesta implicit returnând True. Suprascrierea acestei metode implică impunerea a unor condiții prin care metoda să verifice dacă chiar este ceva de trimis, atlfel să returneze False. Dacă există date de trimis, framewok-ul va apela automat metoda de \verb|handle_write()| în care eset chemată metoda din modulul socket, \verb|self.send()| (figura \ref{fig:write}).
+\begin{figure}[h]
+\centering
+\includegraphics{handleWrite}
+\caption{Trimitere date}
+\label{fig:write}
+\end{figure}
+\\
+\par Primirea datelor de la client (fie el implementat în Python sau în orice alt limbaj de programare) se face asemănător. Metoda \verb|writable()| determină dacă serverul poate să primească date, iar dacă da, acestea sunt primite și decodate în metoda \verb|handle_read()| (figura \ref{fig:read}. În cazul nostru vream să primim mereu date de la client așa metoda respectivă va returna mereu True.
+\begin{figure}[h]
+\centering
+\includegraphics{handleRead}
+\caption{Primire date}
+\label{fig:read}
+\end{figure}
 
 \subsection{Limbajul de programare Java}
+\subsubsection{Scurtă introducere}
+Limbajul de programare Java este un limbaj cu scop general, bazat pe clasă, orintat pe obiect și proiectat să aibă	cât mai puține dependențe de implementare fiind cel mai popular limbaj de programare în 2019. Sintaxa limbajului seamănă cu cel de la C sau C++
 \subsubsection{Folosirea firelor de executie in Java}
 
 \subsection{Sistemul de operare Android}
