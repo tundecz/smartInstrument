@@ -6,6 +6,7 @@ from constants import QUEUE_MAX_SIZE
 from threading import Event
 
 message_q = Queue.Queue(maxsize = QUEUE_MAX_SIZE)
+message_to_client_q = []
 ev = Event()
 
 def enqueue_message(message):

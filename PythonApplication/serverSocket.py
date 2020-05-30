@@ -10,7 +10,6 @@ class MessageHandler(asyncore.dispatcher):
         print("In the Message Handler constructor")
         self.server = server
         self.client_addr = client_addr
-        # self.buffer = ""
 
         asyncore.dispatcher.__init__(self, conn_sock)
 
@@ -20,20 +19,22 @@ class MessageHandler(asyncore.dispatcher):
     
     # change this if we don't send anything from the server
     def writable(self):
-        return True
+        if len(bridge.message_to_client_q) != 0:
+            return True
+        return False
 
-    # reads the incomng message from the client
+    # send frequencies to client for color represenation
+    def handle_write(self):
+        to_send = bridge.message_to_client_q.pop()
+        string_to_send = str(to_send).encode()
+        sent = self.send(string_to_send)
+
+    # reads the incomming message from the client
     def handle_read(self):
         data = self.recv(constants.BUFFER_SIZE)
-        # self.buffer += data
         decoded_data = data.decode()
         bridge.enqueue_message(decoded_data)
         # print(data.decode())
-
-
-    # def handle_write(self):
-    #     data = "message" # send message from a queue
-    #     self.send(data.encode())
 
     def handle_close(self):
         self.close()

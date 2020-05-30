@@ -47,7 +47,7 @@ class Helper:
                     return vibration_value
         else:
             if midiNote == constants.MIDDLE_A:
-                print("Middle C value {}".format(str(constants.MIDDLE_A_VALUE)))
+                print("Middle A value {}".format(str(constants.MIDDLE_A_VALUE)))
                 return constants.MIDDLE_A_VALUE
             else:
                 vibration_value = Helper._rule_of_3(midiNote)
