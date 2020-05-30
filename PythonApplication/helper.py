@@ -95,3 +95,16 @@ class Helper:
     @staticmethod
     def parse_dequeued_message(message):
         return message.split()
+
+    # for easer parsing in client side
+    # appending with 00000001 to have the correct lenght to send
+    @staticmethod
+    def append_to_frequency(frequency):
+        string_frequency = str(frequency)
+        if len(string_frequency) < 9:
+            to_append = "00000001"
+            new_frequency = string_frequency + to_append
+            print(new_frequency)
+            return float(new_frequency)
+        return frequency
+
