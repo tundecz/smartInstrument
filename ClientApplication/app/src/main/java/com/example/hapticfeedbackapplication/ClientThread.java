@@ -2,9 +2,11 @@ package com.example.hapticfeedbackapplication;
 
 import android.util.Log;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
@@ -14,19 +16,20 @@ import java.net.UnknownHostException;
 public class ClientThread implements Runnable {
 
     private Socket socket;
-//    private BufferedReader bufferedReader;
-    private DataInputStream in;
+    private BufferedReader bufferedReader;
+    private InputStream inputStream;
     private static final String SERVER_IP = "localhost";
-    private InputStream input;
-//    public static
+    private DataInputStream in;
+    private final int bufferSize = 13;
 
     @Override
     public void run() {
         try {
-//         InetAddress servAddrs = InetAddress.getByName(SERVER_IP);
-         socket = new Socket("192.168.1.8", 65432);
+         socket = new Socket("192.168.1.12", 65432);
          Log.d("socket","Socket binded");
-         in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+         inputStream = socket.getInputStream();
+         bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+         in = new DataInputStream(inputStream);
          Log.d("socket","Socket binded");
          new Thread(new MessageThread()).start();
         } catch (UnknownHostException e) {
@@ -58,11 +61,18 @@ public class ClientThread implements Runnable {
         public void run() {
             while(true){
                 try {
-                    Log.d("socket","test");
-                    byte[] message = new byte[1024];
-                    in.read(message);
-                    String m = new String(message, "UTF-8");
-                    Log.d("socket",m);
+                    byte[] message = new byte[bufferSize];
+
+                    in.readFully(message);
+                    String decoded = new String(message,"UTF-8");
+//
+//                    inputStream.read(message);
+//                    String m = new String(message, "UTF-8");
+
+
+//                    Log.d("socket","Socket binded");
+//                    byte[] m = bufferedReader.readLine().getBytes();
+                    Log.d("socket", decoded);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
