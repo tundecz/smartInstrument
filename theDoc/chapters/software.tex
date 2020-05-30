@@ -24,7 +24,7 @@ Python este un limbaj de programare devenit foarte popular datorită faptului c�
 \begin{figure}[h]
 \centering
 \includegraphics{indentare}
-\caption{}
+\caption{Exemplu indentare}
 \label{fig:indent}
 \end{figure}
 O scăderii  a indentării  seminfică sfârșitul unui bloc curent în timp ce creșterea indică începerea unei noi afirmații. Un statement (afirmație) este o unitate sintactică a limbajelor de programare imperative care exprimă  unele acțiuni care trebuie efectuate.
@@ -135,9 +135,40 @@ Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețe
 
 \subsection{Limbajul de programare Java}
 \subsubsection{Scurtă introducere}
-Limbajul de programare Java este un limbaj cu scop general, bazat pe clasă, orintat pe obiect și proiectat să aibă	cât mai puține dependențe de implementare fiind cel mai popular limbaj de programare în 2019. Sintaxa limbajului seamănă cu cel de la C sau C++
+Limbajul de programare Java este un limbaj cu scop general, bazat pe clasă, orintat pe obiect și proiectat să aibă	cât mai puține dependențe de implementare fiind cel mai popular limbaj de programare în 2019. Sintaxa limbajului seamănă cel mai mult cu cel de C sau C++. Orientarea pe obiect este o caracteristică foarte importantă în ceea ce privește structura acestui limbaj datorită faptului că tot codul scris trebuie să fie într-o clasă. Astfel, în structura unui proiect scris în Java, fiecare fișier reprezintă o clasă separată. Fiecare element de date este un obiect, excepție făcând numai tipurile primitive de date. În comparație cu limbajul de programare C++, Java nu suportă moștenirile multiple și suprascrierea operatorilor.
+\\
+\par Pentru gestionarea memoriei într-un ciclu de viață a unui obiect Java folosește un colector automat de gunoi\footnote{Garbage collector} care are ca responsabilitate recuperarea memoriei odată ce un obiect nu mai este folosit. Acest lucru se face cu ajutorul referințelor la obiectul respectiv.
+\\
+\par Limbajul de programare Java este folosit în dezvoltarea a mai multor tipuri de aplicații cum ar fi de exemplu aplicațiile de desktop, mobile, procesare datelor mari\footnote{Big Data} sau de sisteme încorporate. Scopul acestui limaj în proiectul de lincență de față este crearea unei aplicații Android pentru personalizarea experienței utilizatorilor și redarea într-un context vizual sunetele muzicii în ceea ce privește "ascultarea" muzicii de către comunitatea surdă.
 \subsubsection{Folosirea firelor de executie in Java}
+Firele de execuție joacă un rol important în momentul în care dorim să creăm o aplicație mobilă cu ajutorul limbajului de programare Java. Un fir de execuție poate fi definită ca fiind ce mai mică  unitate de procesare ce poate fi programată spre execuție de către un sistem de operare.Ele permit programelor să facă mai multe lucruri simultan.Acest lucru permite unui utilizator să facă ceva în timp ce altceva se întâmplă pe fundal \cite{articleThread}, firele de execuție execută porțiuni de cod  în paralel în interiorul aceluiași proces. În timp ce comunicarea între procese se poate face numai cu mecanisme de comunicare interprocesare, comunicarea între firele de execuție se întâmplă mult mai ușor și mai rapid, ele având un spațiu de memorie comun și un sistem de semaforizare.
+\\
+\par Java este un limbaj de programare care are printre principiile sale și suportarea programării pe mai multe fire de execuție. Sistemul Java de rulare depinde de thread-uri datorită a mai multor lucruri. Firele de execuție reduc ineficiența prin prevenirea pierderii ciclirilor  procesorului \cite{Thread}.
+\\ 
+\par Noțiunea de multithreading înseamnă rularea unei aplicații pe mai multe fire de execuție.În cazul limbajului de programare Java acest sistem este bazat pe clasa \verb|Thread|, pe metodele acestuia și pe interfața \verb|Runnable|. Astfel pentru a crea un firde execuție nou avem două soluții: putem extinde clasa \verb|Thread| și să suprascriem metoda \verb|run()| sau putem să implementăm interfața \verb|Runnable|, ambele având același efect. În interiorul metodei \verb|run()| se va scrie codul care se va executa în dată ce firul de execuție e pornit. Astfel de exemplu se poate vedea în figura \ref{fig:thread}.
+\begin{figure}[h]
+\centering
+\includegraphics{thread}
+\caption{Crearea firelor de execuție}
+\label{fig:thread}
+\end{figure}
+Implementarea acestei metode și crearea unei instanțe a acestei clase nu este deajuns pentru a porni un nou fir de execuție în aplicație. Un fir de execuție are mai multe stări în dealungul vieții lui. Când instanțiem clasa respectivă, îl punem în starea \verb|New|, aceasta indicând că firul de execuție e într-o stare nouă, însă nu se rulează. Rularea unui thread-ului se întâmplă în momentul în care apelăm metoda \verb|start()| pe firul de execuție respectiv, cum se pate vedea și în figura \ref{fig:runthread}. Până atunci acesta va rămâne în starea nouă.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=1.3]{runThread}
+\caption{Rularea unui fir de execuție}
+\label{fig:runthread}
+\end{figure}
+\\
+%completre ciclu de viata
+\par Un fir de execuție poate fi și într-o stare de așteptare ceea ce înseamcă că așteaptă un alt thread să efectueze o sarcină. Acest thread poate să treacă înapoi în starea de rulare numai în cazul în care se semnalează acest lucru.
 
-\subsection{Sistemul de operare Android}
+\subsection{Crearea unei aplicații Android cu Android Studio}
+\subsubsection{Sistemul de operare Android}
+Android este un sistem de operare care a fost conceput pentru dispozitivele mobile și care inițial a fost dezvoltat de compania Google. Este bazat pe sistemul de operare Linux însă mai multe drivere și biblioteci  au fost modificate sau dezvoltate pentru a permite Android-uli să funcționeze cât mai eficient pe dispozitivele mobile. Aplicațiile Android sunt scrise în limbajul de programare Java și rulate pe o mașină virtuală. Se pot dezvolta aplicații și în limbajul C acestea fiind compilate în cod mașină ARM. Dezvoltarea acestui sistem de operare se întâmplă într-un pas destul de rapid, având un release major nou în fiecare lună  \cite{Android}. Pentru stocarea datelor Android folosește software-ul SQLite
+\subsubsection{Android Studio}
+Pentru crearea aplicației Android s-a folosit Android Studio datorită faptului că oferă multe funcții care îmbunătățesc productivitatea atunci când vine vorba despre construirea  aplicațiilor Android. Android Studio ne oferă un mediu unificat în care putem dezvolta aplicații pentru toate dispozitivele Android având integrat un emulator rapid cu ajutorul căruia putem testa aplicația fără a conecta un dispozitiv Android la calculator. Emulatorul ne oferă aproape toate capabilitățile unui dispozitiv Android real. Desigur avem posibilitatea de a testa aplicație și pe un telefon real, conectarea acestuia la IDE fiind ușor.
+\\
+\par Structura unui proiect în Android Studio conține mai multe directoare cu codul sursă atât pentru interfață cât și pentru clasele cu ajutorul cărora aplicația va rula încâ și clasele pentru testarea aplicației. La prima vedere fișierele cele mai importate sunt \verb|AndroidManifest.xml| în care se află codul pentru interfața aplicației, fișierul java \verb|MainActivity| care cel mai bine se poate compara cu funcția \verb|main()| din C++, fiind locul de unde se încarcă componenta UI a aplicației. Dacă avem o aplicație cu ecrane multiple, pentru fiecare ecran o să avem o activitate diferită, activitatea principală fiind fereastra cu care porneșe aplicația. În cazul acestei aplicații vom avea doar o singură fereastră, ciclul acestuia fiind controlată din \verb|MainActivity|. Există și un folder numit res, care conține toate resursele care nu sunt cod cum ar fi machetele XML, șiruri UI și imagini bitmap. Aici putem vedea vizual cum va arăta interfața aplicației fiind și locul în care putem construi UI-ul printr-o simplă tragele a componentelor din paletă.
 \subsubsection{Baza de date SQLite}
 \end{document}
