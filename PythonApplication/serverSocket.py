@@ -19,15 +19,17 @@ class MessageHandler(asyncore.dispatcher):
     
     # change this if we don't send anything from the server
     def writable(self):
-        if len(bridge.message_to_client_q) != 0:
-            return True
-        return False
+        # if len(bridge.message_to_client_q) != 0:
+        #     return True
+        # return False
+        return True
 
     # send frequencies to client for color represenation
     def handle_write(self):
-        to_send = bridge.message_to_client_q.pop()
-        string_to_send = str(to_send).encode()
-        sent = self.send(string_to_send)
+        if(len(bridge.message_to_client_q) != 0):
+            to_send = bridge.message_to_client_q.pop()
+            string_to_send = str(to_send).encode()
+            sent = self.send(string_to_send)
 
     # reads the incomming message from the client
     def handle_read(self):
