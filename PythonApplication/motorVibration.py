@@ -11,11 +11,11 @@ class VibrationMotor:
         print("Hi from the motor constructor. GPIO {} set.".format(str(gpio)))
 
     # vibrate the motor with the calculated frequency and value
-    def vibrate(self, velocity, midiNote = 0):
+    def vibrate(self, frequency, value = 0):
         # if we don't check if the note was pressed and we pass 0 to frequency converter
         # it may not work (calculation problems) => more safe this way
-        if(midiNote is not constants.NOTE_OFF_VALUE):
-            self._set_motor_value_and_frequency(velocity, midiNote)
+        if(value != constants.NOTE_OFF_VALUE):
+            self._set_motor_value_and_frequency(frequency, value)
             sleep(0.1) # try it with 0.01
         else:
            self._set_to_0()
@@ -33,8 +33,8 @@ class VibrationMotor:
         self._vibrationMotor.value = constants.NOTE_OFF_VALUE
         self._vibrationMotor.frequency = constants.DEFAULT_FREQUENNCY
 
-    def _set_motor_value_and_frequency(self, velocity, midiNote):
-        frequency, value = self._get_frequency_and_value(velocity, midiNote)
+    def _set_motor_value_and_frequency(self, frequency, value):
+        # frequency, value = self._get_frequency_and_value(velocity, midiNote)
         self._vibrationMotor.value = value
         self._vibrationMotor.frequency = frequency
         print("vibrationValue: {}, frequency: {}".format(value, frequency))

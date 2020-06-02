@@ -85,7 +85,7 @@ class Helper:
     def is_in_bass_range(midiNumber):
         return True if midiNumber < constants.MIDDLE_C else False
 
-    # treble range  == the range that we play witth our right hands
+    # treble range  == the range that we play with our right hands
     @staticmethod
     def is_in_treble_range(midiNumber):
         return True if midiNumber >= constants.MIDDLE_C and midiNumber <= 70 else False # need to change 70

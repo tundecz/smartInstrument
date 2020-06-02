@@ -17,9 +17,21 @@ class ReadMidi():
         print(self._midiIn)
 
         # set gpio pins
-        self._bass_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_CLEF.value)
-        self._treble_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_15_TREBLE_CLEF.value)
-        self._upper_high_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_18_HIGH_NOTES.value)
+        # self._bass_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_CLEF.value)
+        # self._treble_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_15_TREBLE_CLEF.value)
+        # self._upper_high_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_18_HIGH_NOTES.value)
+
+        self._bass_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_1.value)
+        self._bass_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_15_BASS_2.value)
+        self._bass_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_18_BASS_3.value)
+
+        self._treble_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_17_TREBLE_1.value)
+        self._treble_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_27_TREBLE_2.value)
+        self._treble_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_22_TREBLE_3.value)
+
+        self._high_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_10_HIGH_1.value)
+        self._high_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_9_HIGH_2.value)
+        self._high_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_11_HIGH_3.value)
 
     @property
     def midiIn(self):
@@ -55,25 +67,66 @@ class ReadMidi():
     
     # check for midi number to see what set of motors shoudl vibrate
     def _vibrate_the_motors(self, note, velocity):
-        print("Bug verification " + str(note))
         if Helper.is_in_bass_range(note):
             print("Bass motor vibration")
             if DEFAULT_VALUES[Message.BASS] is True:
-                self._bass_motors.vibrate(velocity, note)
+                frequency = Helper.convert_midi_number_to_frequency(note)
+                value = Helper.calculate_value_based_on_note(note)
+                self._put_frequency_in_array_for_client(frequency)
+                self._bass_motors_2.vibrate(frequency, value)
+                self._bass_motors_1.vibrate(frequency, value)
+                self._bass_motors_3.vibrate(frequency, value)
         elif Helper.is_in_treble_range(note):
             print("Treble motor vibration")
             if DEFAULT_VALUES[Message.TREBLE] is True:
-                self._treble_motors.vibrate(velocity, note)
+                frequency = Helper.convert_midi_number_to_frequency(note)
+                value = Helper.calculate_value_based_on_note(note)
+                self._put_frequency_in_array_for_client(frequency)
+                self._treble_motors_1.vibrate(frequency, value)
+                self._treble_motors_2.vibrate(frequency, value)
+                self._treble_motors_3.vibrate(frequency, value)
         else:
             print("Upper high motors vibration")
             if DEFAULT_VALUES[Message.HIGH] is True:
-                self._upper_high_motors.vibrate(velocity, note)
+                frequency = Helper.convert_midi_number_to_frequency(note)
+                value = Helper.calculate_value_based_on_note(note)
+                self._put_frequency_in_array_for_client(frequency)
+                self._high_motors_1.vibrate(frequency, value)
+                self._high_motors_2.vibrate(frequency, value)
+                self._high_motors_3.vibrate(frequency, value)
     
+    
+    def _put_frequency_in_array_for_client(self, frequency):
+        # put it if the client is connected
+        if(DEFAULT_VALUES[Message.CONNECTED] == True):
+            frequency_to_send = Helper.append_to_frequency(frequency)
+            print(frequency_to_send)
+            bridge.message_to_client_q.append(frequency_to_send)
+
     #stop motor vibration when not notes are coming
     def _stop_motors(self):
-        self._bass_motors.vibrate(0)
-        self._treble_motors.vibrate(0)
-        self._upper_high_motors.vibrate(0)
+        self._stop_bass_motors()
+        self._stop_treble_motors()
+        self._stop_high_motors()
+    
+    # stop bass motors vibration
+    # if we give 1 value, midi note will be 0
+    def _stop_bass_motors(self):
+        self._bass_motors_1.vibrate(0)
+        self._bass_motors_2.vibrate(0)
+        self._bass_motors_3.vibrate(0)
+    
+    # stop treble motor vibration
+    def _stop_treble_motors(self):
+        self._treble_motors_1.vibrate(0)
+        self._treble_motors_2.vibrate(0)
+        self._treble_motors_3.vibrate(0)
+
+    # stop high motors vibration
+    def _stop_high_motors(self):
+        self._high_motors_1.vibrate(0)
+        self._high_motors_2.vibrate(0)
+        self._high_motors_3.vibrate(0)
 
     # we need to check if the event is set, then dequeue and check what command was passed
     # note_type = bass/treble/high/value

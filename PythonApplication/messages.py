@@ -10,6 +10,7 @@ class Message(enum.Enum):
     SWITCH = 6
     PROGRESS = 7
     RESET = 8
+    CONNECTED = 9 # client connection
     # RESET = 
 
 # enum mapping
@@ -33,5 +34,6 @@ DEFAULT_VALUES = {
     Message.BASS: True,
     Message.TREBLE: True,
     Message.HIGH: True,
-    Message.PROGRESS: 50
+    Message.PROGRESS: 50,
+    Message.CONNECTED: False
 }

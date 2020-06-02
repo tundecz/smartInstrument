@@ -3,6 +3,7 @@ from constants import HOST, PORT
 import asyncore # wrappre over socket
 import constants
 import bridge
+from messages import DEFAULT_VALUES, Message
 
 class MessageHandler(asyncore.dispatcher):
 
@@ -10,7 +11,7 @@ class MessageHandler(asyncore.dispatcher):
         print("In the Message Handler constructor")
         self.server = server
         self.client_addr = client_addr
-
+        DEFAULT_VALUES[Message.CONNECTED] = True
         asyncore.dispatcher.__init__(self, conn_sock)
 
     # it means the server is allowed to read messages from the client
