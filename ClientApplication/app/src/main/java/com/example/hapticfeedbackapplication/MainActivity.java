@@ -26,6 +26,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Random;
+import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -156,9 +157,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setColor(Float frequency){
-        Random rand = new Random();
-        frequencyColorView.setBackgroundColor(Color.argb(255,rand.nextInt(256),rand.nextInt(256),rand.nextInt(256)));
+    private void setColor(Vector<Double> rgb){
+        Integer red = rgb.get(0).intValue();
+        Integer green = rgb.get(1).intValue();
+        Integer blue = rgb.get(2).intValue();
+        frequencyColorView.setBackgroundColor(Color.argb(255,red,green,blue));
     }
 
 
@@ -212,11 +215,11 @@ public class MainActivity extends AppCompatActivity {
                         String decoded = new String(message,"UTF-8");
                         Log.d("socket",decoded);
                         try{
-                            final Float frequencyValue = Float.valueOf(decoded);
+                            final Double frequencyValue = Double.valueOf(decoded);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    setColor(frequencyValue);
+                                    setColor(Converter.getRGB(frequencyValue));
                                 }
                             });
                         } catch (NumberFormatException e){
