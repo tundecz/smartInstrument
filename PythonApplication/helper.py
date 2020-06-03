@@ -101,10 +101,19 @@ class Helper:
     @staticmethod
     def append_to_frequency(frequency):
         string_frequency = str(frequency)
-        if len(string_frequency) < 9:
+        if len(string_frequency) == 5:
             to_append = "00000001"
             new_frequency = string_frequency + to_append
             print(new_frequency)
+            return float(new_frequency)
+        elif len(string_frequency) == 12:
+            to_append = "1"
+            new_frequency = string_frequency + to_append
+            print(new_frequency)
+            return float(new_frequency)
+        elif len(string_frequency) == 6:
+            to_append = "0000001"
+            new_frequency = string_frequency + to_append
             return float(new_frequency)
         return frequency
 
