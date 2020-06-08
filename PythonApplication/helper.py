@@ -72,7 +72,7 @@ class Helper:
             changed_amount = 50 - DEFAULT_VALUES[Message.PROGRESS]
             return -((changed_amount * constants.MAX_MIN_PROGRESS_VALUE)/constants.DEFAULT_VALUE_FOR_SLIDER)
         elif DEFAULT_VALUES[Message.PROGRESS] > 50:
-            changed_amount = DEFAULT_VALUES[Message.PROGRESS]
+            changed_amount = DEFAULT_VALUES[Message.PROGRESS] - 50 
             return ((changed_amount * constants.MAX_MIN_PROGRESS_VALUE)/constants.DEFAULT_VALUE_FOR_SLIDER)
 
     # take a look on github at Tone class for a better representation for the value
