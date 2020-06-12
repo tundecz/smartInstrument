@@ -134,24 +134,27 @@ class ReadMidi():
     # default all the boolean params will be true
     # for the progress the parameter will be a value
     def _processEvent(self):
-        message = bridge.dequeue_message()
-        note_type, value = Helper.parse_dequeued_message(message)
-        print("Message received in the readmidi class {}".format(message))
-        if note_type == MESSAGES[Message.SWITCH]:
-           self._setValues(value, Message.SWITCH)
-        elif note_type == MESSAGES[Message.BASS]:
-            self._setValues(value, Message.BASS)
-        elif note_type == MESSAGES[Message.TREBLE]:
-            self._setValues(value, Message.TREBLE)
-        elif note_type == MESSAGES[Message.HIGH]:
-            self._setValues(value, Message.HIGH)
-        elif note_type == MESSAGES[Message.PROGRESS]:
-            # need to convert because value is a string
-            progress_value = int(value)
-            print(progress_value)
-            DEFAULT_VALUES[Message.PROGRESS] = progress_value
-        elif note_type == MESSAGES[Message.RESET]:
-            self._resetToDefaultValues()
+        try:
+            message = bridge.dequeue_message()
+            note_type, value = Helper.parse_dequeued_message(message)
+            print("Message received in the readmidi class {}".format(message))
+            if note_type == MESSAGES[Message.SWITCH]:
+                self._setValues(value, Message.SWITCH)
+            elif note_type == MESSAGES[Message.BASS]:
+                self._setValues(value, Message.BASS)
+            elif note_type == MESSAGES[Message.TREBLE]:
+                self._setValues(value, Message.TREBLE)
+            elif note_type == MESSAGES[Message.HIGH]:
+                self._setValues(value, Message.HIGH)
+            elif note_type == MESSAGES[Message.PROGRESS]:
+                # need to convert because value is a string
+                progress_value = int(value)
+                print(progress_value)
+                DEFAULT_VALUES[Message.PROGRESS] = progress_value
+            elif note_type == MESSAGES[Message.RESET]:
+                self._resetToDefaultValues()
+        except:
+            print("Something went wrong")
             
 
     # set the values for DEFAULT_VALUE dictionary based on message got from Android application
