@@ -78,7 +78,10 @@ class Helper:
     # take a look on github at Tone class for a better representation for the value
     @staticmethod
     def _rule_of_3(note):
-        return (constants.MIDDLE_A * constants.MIDDLE_A_VALUE)/note
+        try:
+            return (constants.MIDDLE_A * constants.MIDDLE_A_VALUE)/note
+        except:
+            print("Exception in rule of 3 method")
     
     # we consider the bass range to stop at middle C
     @staticmethod

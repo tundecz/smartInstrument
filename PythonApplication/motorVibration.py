@@ -16,7 +16,7 @@ class VibrationMotor:
         # it may not work (calculation problems) => more safe this way
         if(value != constants.NOTE_OFF_VALUE):
             self._set_motor_value_and_frequency(frequency, value)
-            sleep(0.1) # try it with 0.01
+            sleep(0.02) # try it with 0.01
         else:
            self._set_to_0()
 
@@ -35,9 +35,12 @@ class VibrationMotor:
 
     def _set_motor_value_and_frequency(self, frequency, value):
         # frequency, value = self._get_frequency_and_value(velocity, midiNote)
-        self._vibrationMotor.value = value
-        self._vibrationMotor.frequency = frequency
-        print("vibrationValue: {}, frequency: {}".format(value, frequency))
+        try:
+            self._vibrationMotor.value = value
+            self._vibrationMotor.frequency = frequency
+            print("vibrationValue: {}, frequency: {}".format(value, frequency))
+        except:
+            print("Exception from set motor value and frequency")
 
     # desctructor
     def __del__(self):

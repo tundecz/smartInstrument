@@ -155,6 +155,7 @@ class ReadMidi():
                 self._resetToDefaultValues()
         except:
             print("Something went wrong")
+            self._resetToDefaultValues()
             
 
     # set the values for DEFAULT_VALUE dictionary based on message got from Android application
