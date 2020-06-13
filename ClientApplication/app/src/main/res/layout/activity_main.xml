@@ -10,25 +10,25 @@
         android:id="@+id/high_on_off_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="@string/high_on_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.865"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/treble_on_off_switch"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.536" />
 
     <Switch
         android:id="@+id/bass_on_off_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
         android:text="@string/bass_on_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/on_off_switch"
-        app:layout_constraintVertical_bias="0.062" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.536" />
 
     <SeekBar
         android:id="@+id/seek_bar"
@@ -43,18 +43,25 @@
 
     <Switch
         android:id="@+id/on_off_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/on_off"
+        android:layout_width="67dp"
+        android:layout_height="37dp"
+        android:showText="true"
+        android:textFontWeight="100"
+        android:textAllCaps="false"
+        android:textOff="@string/off"
+        android:textOn="@string/on"
+        android:scaleX="1"
+        android:scaleY="1"
         app:layout_constraintBottom_toTopOf="@+id/seek_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.576" />
+        app:layout_constraintVertical_bias="0.594"
+        tools:targetApi="lollipop" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/feelTheMusicText"
         android:layout_width="223dp"
         android:layout_height="63dp"
         android:foregroundGravity="center"
@@ -72,25 +79,35 @@
         android:id="@+id/treble_on_off_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="@string/treble_on_off"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bass_on_off_switch"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.536" />
 
     <Button
         android:id="@+id/reset_all"
         android:layout_width="67dp"
         android:layout_height="37dp"
         android:text="@string/reset_all"
+        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/on_off_switch"
         app:layout_constraintVertical_bias="0.05" />
+
+    <ImageView
+        android:id="@+id/colorView"
+        android:layout_width="319dp"
+        android:layout_height="146dp"
+        android:layout_marginBottom="64dp"
+        android:background="#FAFAFA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feelTheMusicText"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
