@@ -4,9 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,18 +11,16 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Random;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar;
     Button resetButton;
     ImageView frequencyColorView;
+    TextView feelTheMusicText;
     int seekBarProgress = 50;
 
 //    ClientThread clientThread;
@@ -57,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Toast.makeText(getApplicationContext(),"seekbar progress: " + progress, Toast.LENGTH_SHORT).show();
-//                frequencyColorView.setBackgroundColor(Color.BLACK);
+                Toast.makeText(getApplicationContext(), "Intensity: " + progress, Toast.LENGTH_SHORT).show();
                 if(clientThread != null){
                     clientThread.sendMessage("progress " + progress);
                 }
@@ -132,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.seek_bar);
         resetButton = findViewById(R.id.reset_all);
         frequencyColorView = findViewById(R.id.colorView);
+        feelTheMusicText = findViewById(R.id.feelTheMusicText);
     }
 
     private void setDefaultValues(){
@@ -147,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         trebleOnOffSwitch.setChecked(true);
         highOnOffSwitch.setChecked(true);
         seekBar.setProgress(seekBarProgress);
+        frequencyColorView.setBackgroundColor(Color.rgb(250,250,250));
     }
 
     private void sendMessageToServer(boolean isChecked, String type, ClientSocket clientThread){
@@ -164,6 +161,10 @@ public class MainActivity extends AppCompatActivity {
         frequencyColorView.setBackgroundColor(Color.argb(255,red,green,blue));
     }
 
+    private void setGreenColorOnSocketConnection(){
+        feelTheMusicText.setTextColor(Color.rgb(0,133,119));
+    }
+
 
 
     public class ClientSocket implements Runnable{
@@ -176,14 +177,34 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                socket = new Socket("192.168.1.12", 65432);
+                socket = new Socket("192.168.1.20", 65432);
                 Log.d("socket","Socket binded");
                 inputStream = socket.getInputStream();
                 in = new DataInputStream(inputStream);
                 Log.d("socket","Socket binded");
+                if(socket.isConnected()){
+//                    Toast.makeText(getApplicationContext(),"Socket successfully bounded to server",Toast.LENGTH_LONG).show();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setGreenColorOnSocketConnection();
+                        }
+                    });
+                } else{
+                    Toast.makeText(getApplicationContext(),"Socket not bounded",Toast.LENGTH_LONG).show();
+                    Log.d("socket","hello");
+                }
                 new Thread(new MessageThread()).run();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                if(socket != null){
+                    try{
+                        socket.close();
+                    } catch (IOException e){
+                        Log.d("socet", e.toString());
+                    }
+                }
             }
 
         }
@@ -195,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                     if(null != socket){
                         try {
                             PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
+                            Log.d("socket",message);
                             out.println(message);
                         } catch (IOException e) {
                             e.printStackTrace();
