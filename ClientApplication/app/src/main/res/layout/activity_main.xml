@@ -43,21 +43,23 @@
 
     <Switch
         android:id="@+id/on_off_switch"
-        android:layout_width="67dp"
-        android:layout_height="37dp"
-        android:showText="true"
-        android:textFontWeight="100"
-        android:textAllCaps="false"
-        android:textOff="@string/off"
-        android:textOn="@string/on"
+        android:layout_width="54dp"
+        android:layout_height="40dp"
         android:scaleX="1"
         android:scaleY="1"
+        android:showText="true"
+        android:textAllCaps="false"
+        android:textFontWeight="100"
+        android:textOff="@string/off"
+        android:textOn="@string/on"
+        android:thumb="@drawable/custom_switch_thumb"
+        android:track="@drawable/custom_switch_path"
         app:layout_constraintBottom_toTopOf="@+id/seek_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594"
+        app:layout_constraintVertical_bias="0.58"
         tools:targetApi="lollipop" />
 
     <TextView
