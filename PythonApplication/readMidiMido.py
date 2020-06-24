@@ -8,30 +8,33 @@ from helper import Helper
 from constants import HOST, PORT, DEFAULT_VALUE_FOR_SLIDER
 import bridge
 from messages import MESSAGES, Message, DEFAULT_VALUES
+from multiprocessing import Process
+import multiprocessing
 
 
 class ReadMidi():
     
     def __init__(self, port):
-        self._midiIn = mido.open_input(port)
-        print(self._midiIn)
+        try:
+            self._midiIn = mido.open_input(port)
+            print(self._midiIn)
 
-        # set gpio pins
-        # self._bass_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_CLEF.value)
-        # self._treble_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_15_TREBLE_CLEF.value)
-        # self._upper_high_motors = VibrationMotor(GPIO_PINS.GPIO_PIN_18_HIGH_NOTES.value)
+            self._bass_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_1.value)
+            self._bass_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_15_BASS_2.value)
+            self._bass_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_18_BASS_3.value)
 
-        self._bass_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_14_BASS_1.value)
-        self._bass_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_15_BASS_2.value)
-        self._bass_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_18_BASS_3.value)
+            self._treble_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_17_TREBLE_1.value)
+            self._treble_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_27_TREBLE_2.value)
+            self._treble_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_22_TREBLE_3.value)
 
-        self._treble_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_17_TREBLE_1.value)
-        self._treble_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_27_TREBLE_2.value)
-        self._treble_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_22_TREBLE_3.value)
+            self._high_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_10_HIGH_1.value)
+            self._high_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_9_HIGH_2.value)
+            self._high_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_11_HIGH_3.value)
 
-        self._high_motors_1 = VibrationMotor(GPIO_PINS.GPIO_PIN_10_HIGH_1.value)
-        self._high_motors_2 = VibrationMotor(GPIO_PINS.GPIO_PIN_9_HIGH_2.value)
-        self._high_motors_3 = VibrationMotor(GPIO_PINS.GPIO_PIN_11_HIGH_3.value)
+            # print(multiprocessing.cpu_count())
+            
+        except:
+            print("Exception from ReadMidi constructor")
 
     @property
     def midiIn(self):
@@ -47,8 +50,11 @@ class ReadMidi():
 
     # close input port
     def _close_input_port(self):
-        self._midiIn.close()
-        print("Midi port closed")
+        try:
+            self._midiIn.close()
+            print("Midi port closed")
+        except:
+            print("Midi port could not be closed")
     
 
     # parsing the array and returning the values seperately
