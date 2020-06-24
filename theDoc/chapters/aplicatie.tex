@@ -12,7 +12,7 @@ Pentru realizarea dispozitivului purtabil s-a folosit nouă bucăți de motoare 
 \caption{Motoarele de vibrații}
 \label{fig:motors}
 \end{figure}  
- Datorită faptului că pentru acest număr de motoare trebuie 9 pini de ground, iar placa are numai 8 la bucăți, s-a folost un breadboard  la care se poate conecta un singur pin de ground. Conectarea s-a făcut cu ajutorul unor cabluri de tip tată-tată și mamă-tată, motoarele de vibrații fiind și ele cositorte de aceste fire pentru un contact mai bun.
+ Datorită faptului că pentru acest număr de motoare trebuie 9 pini de ground, iar placa are numai 8 la bucăți, s-a folost un breadboard  la care se poate conecta un singur pin de ground. Conectarea s-a făcut cu ajutorul unor cabluri de tip tată-tată și mamă-tată, motoarele de vibrații fiind și ele cositorite de aceste fire pentru un contact mai bun.
 \\
 \par Numărul total de motoare de vibrații LRA folosite influențează experiența utilizatorului din motive destul de evidente. Mai multe motoare înseamnă vibrații intensificate și de mai multe feluri. Datorită faptului că am folosit un instrument muzical cu o gamă largă de note era evident că pentru a avea un rezultat cât mai bun este nevoie ca vibrațiile resimțite să provină din mai multe astfel de dispozitive. Nu s-au folosit un număr mai mare decât nouă din cauza posibilităților de echipamente hardware. Modul în care acestea sunt distributie și vibrează este în felul următor: folosind un pian electric cu 61 de clape am împărțit aceste clape în trei categorii de note muzicale. Primele două octave (adică notele joase) reprezintă prima categorie. A doua categorie reprezintă notele din mijloc, aceasta fiind formată numai dintr-o ocatvă. Ultima categorie este reprezentată de cele două octave rămase adică notele cele mai înalte. Fiecărui astfel de categorie i se atribuie trei motoare. Când se va apăsa o clapă una dintre cele trei categorii de motoare vor începe să vibreze la o anumită valoare și frecvență calculată. Metoda prin care au fost calculate aceste categorii se poate observa în figura \ref{fig:range} unde se verifică numărul MIDI a notei muzicale iar în funcție de asta se va returna un boolean.
 \begin{figure}[h]
@@ -31,7 +31,7 @@ Pentru realizarea dispozitivului purtabil s-a folosit nouă bucăți de motoare 
 \end{figure}  
 \newpage
 \subsubsection{Folosirea echipamentului hardwer de către utilizatori}
-Dispozitivul este destinat persoanelor  cu dizabilități. Folosirea acestuia este ușor, utilizatorul trebuind doar să pună palma (să facă contact) pe motoarele de vibrații. În momentul în care se pornește placa de dezvoltare Raspberry Pi conectată la pian și o persoană cântă la instrumentul respectiv, utiliztorul poate deja să simtă vibrațiile. Latența dintre momentul în care o clapă a fos apăsată și momentul în care motoarele încep să vibreze va fi una de 0.02 secunde. Totodată dacă o clapă a fost ținută apăsată mai mult timp, asta însemnând că se crează un sunet mai lung, motoarele nu vor vibra pe toată durata acestui timp, utilizatorul simțind vibrațiile numai 0.02 de secunde. Cu toate că acest timp pare puțin, datorită faptului că sunt mai mult motoare acesta este îndeajuns și chiar favorizează mai ales în cazul în care ritmul muzicii este una foarte rapidă. Dacă aplicația este conectată la o sursă de alimentație, ea rămâne pornită până când se întrerupe curentul. Aplicația rulează și în momentul în care pianul nu este încă pornit (fiind vorba despre un pian electric). Utilizatorul va putea opri vibrațiile numai din aplicația mobilă ce va fi prezentată în subcapitolele ce urmează.
+Dispozitivul este destinat persoanelor  cu dizabilități. Folosirea acestuia este ușor, utilizatorul trebuind doar să pună palma pe motoarele de vibrații. În momentul în care se pornește placa de dezvoltare Raspberry Pi conectată la pian și o persoană cântă la instrumentul respectiv, utiliztorul poate deja să simtă vibrațiile. Latența dintre momentul în care o clapă a fos apăsată și momentul în care motoarele încep să vibreze va fi una de 0.02 secunde. Totodată dacă o clapă a fost ținută apăsată mai mult timp, asta însemnând că se crează un sunet mai lung, motoarele nu vor vibra pe toată durata acestui timp, utilizatorul simțind vibrațiile numai 0.02 de secunde. Cu toate că acest timp pare puțin, datorită faptului că sunt mai mult motoare acesta este îndeajuns și chiar favorizează mai ales în cazul în care ritmul muzicii este una foarte rapidă. Dacă aplicația este conectată la o sursă de alimentație, ea rămâne pornită până când se întrerupe curentul. Aplicația rulează și în momentul în care pianul nu este încă pornit (fiind vorba despre un pian electric). Utilizatorul va putea opri vibrațiile numai din aplicația mobilă ce va fi prezentată în subcapitolele ce urmează.
 \subsubsection{Metoda de calculare folosită pentru motoarele de vibrații}
 Calcularea intensității și a frecvenței cu care vibrează un motor se face pe baza notei MIDI primite de la pian. Nota muzicală cântată ajunge sub forma unui număr în programul nostru asta însemnând că cu cât e mai mare numărul respectiv cu atât nota muzicală cântată este mai înaltă. Pentru calcularea frecvenței, dintr-o notă muzicală, cu care vibrează un motor există formulă și s-a discutat despre asta în capitolul anterior. Datorită faptului că aceste schimbări de frecvențe pot fi simțite foarte puțin la o valoare de vibrație constantă, este necesar și calcularea acestor valori.
 \\
@@ -56,7 +56,7 @@ Calcularea intensității și a frecvenței cu care vibrează un motor se face p
 \begin{figure}[h]
 \centering
 \includegraphics{gSharp}
-\caption{Valori calculate în consolă}
+\caption{Afișarea valorilor în consolă}
 \label{fig:gSharp}
 \end{figure}  
 \subsubsection{Comunicarea dintre firele de execuție} 
@@ -86,7 +86,7 @@ Setarea evenimentului se verficiă în momemntul în care citim datele de la pia
 \subsubsection{Nevoia de folosire a unui aplicații Android}
 Aplicația de placa de dezvoltare Raspberry Pi, după cum s-a discutat și în capitolele anterioare, oferă posibilitatea redării muzicii cântate la pian în formă de vibrații. Utilizatorul acestui dispozitiv, fără o aplicație conectată, nu are nici un fel de control asupra acestor lucruri, nu poate să intervină să oprescă sau să personalizeze vibrațiile simțite. Crearea unei aplicații Android pentru acest dispozitiv nu are scopul doar de a controla aceste vibrații dar și de a oferi un feedback vizual în ceea ce privește aceste note muzicale. 
 \\
-\par În subcapitolele ce urmează vor fi prezentate atât funcționalitățile incluse în aplicația Android cât și algoritmii aleși pentru implementarea acestora.
+\par În subcapitolele ce urmează vor fi prezentate atât funcționalitățile incluse în aplicația Android cât și metodele și algoritmii aleși pentru implementarea acestora.
 \subsubsection{Folosirea interfeței aplicației mobile}
 %\begin{wrapfigure}{r}{0.5\textwidth}
 %\begin{center}
@@ -107,10 +107,10 @@ Aplicația Android dezvoltată este una cu o singură activitate cu mai multe fu
 \\
 \par Aplicația dispunde de mai multe butoane de comutare printre care se află și buton de oprire și pornire. La deschiderea aplicației acest buton este setat în mod implicit de pornit. Dacă utilizatorul va trage butonul de comutare spre stânga, se vor opri toate vibrațiile.
 \\ %reformulare
-\par Utilizatorul are posibiliatea să controleze toate cele trei categorii de motoare, atașate de placa de dezvoltare, prin butoane de comutare. Aceste motoare pt fi oprite sau repornite fiecare în parte, separat. Ca și la butonul de oprire și pornire, și la aceste butoane este setat în mod implicit la pornirea aplicației să fie pe opțunea de pornit. Nevoia acestor butoane se poate explica prin faptul că persoanele surde de cele mai multe ori simt numai basul muzicii prin intermediul difuzoarelor. Pentru că aplicația dezvoltată redă și virbațiile și notelor foarte înalte, am considerat implementarea acestui funcționalități una de folos. 
+\par Utilizatorul are posibiliatea să controleze toate cele trei categorii de motoare atașate de placa de dezvoltare prin butoane de comutare. Aceste motoare pot fi oprite sau repornite fiecare în parte, separat. Ca și la butonul de oprire și pornire, și la acestea este setat în mod implicit la pornirea aplicației să fie pe opțiunea de pornit. Nevoia acestor butoane se poate explica prin faptul că persoanele surde de cele mai multe ori simt numai basul muzicii prin intermediul difuzoarelor. Pentru că aplicația dezvoltată redă și virbațiile și notelor foarte înalte, am considerat implementarea acestui funcționalități una de folos. 
 \\
-\par Cu ajutorul unei bare de progrese se poate seta intensitatea cu care se pot simți vibrațiile. Bara poate lua valori întregi de la 0 până la 100, valoarea implicită fiind cel de 50, la care vibrațiile au exact valorile calculate în aplicație. Schimbarea cursorului va afecta vibrațiile cu
- până la 0.2 de valori. Funcționalitatea acestui component se poate cel mai ușor compara cu cel al schimbării volumului. De fiecare dată când se va schimba bara de progres, va apărea pe partea de jos a ecranului un mesaj popup cu valoarea curentă a barei de progres, care va dispărea după o perioadă scurtă de timp. Cu ridicarea intensității până la valoarea maximă utiizatorul va putea simți notele joase cu valoarea de vibrație maximă admisă de motoare.
+\par Cu ajutorul unei bare de progrese se poate seta intensitatea cu care se pot simți vibrațiile. Bara poate lua valori întregi de la 0 până la 100, va\-loa\-rea implicită fiind cel de 50, la care vibrațiile au exact valorile calculate în aplicație. Schimbarea cursorului va afecta vibrațiile cu
+ până la 0.2 de valori. Funcționalitatea acestui component se poate cel mai ușor compara cu cel al schimbării volumului. De fiecare dată când se va schimba bara de progres, va apărea pe partea de jos a ecranului un mesaj de tip popup cu valoarea curentă a barei de progres, care va dispărea după o perioadă scurtă de timp. Cu ridicarea intensității până la valoarea maximă utiizatorul va putea simți notele joase cu valoarea de vibrație maximă admisă de motoare.
 \\
 \par Există și posibilitatea resetării tuturor acestor componente la valoarea implicită cu ajutorul butonului reset. Singurul lucru pe care nu îl resetează este butonull de oprire/pornire, care își va păstra starea în care se află la momentul respectiv.
 \\
@@ -118,18 +118,19 @@ Aplicația Android dezvoltată este una cu o singură activitate cu mai multe fu
 \begin{figure}[h]
 \begin{center}
 \includegraphics[scale=0.11]{applicationPressed}
-\caption{Interfață aplicație mobilă}
+\caption{Interfață cu reprezentarea notelor prin culori}
 \label{fig:applicationPressed}
 \end{center}
 \end{figure}
+Dacă s-au apăsat mai multe clape pe pian culorile se vor schimba în funcție de rapiditatea cu care acestea au fost apăsate. Clapa care a fost apăsată mai repede (altfel spus, mesajul care a fost trimis mai repede pe aplicația Android) va fi reprezentată prima ca și culoare. După ce s-a dat drumul la o clapă culoarea va rămâne pe ecran până când se va apăsa o altă clapă sau se vor reseta câmpurile cu ajutorul butonului Reset.
 \\
 \par Pe durata timpului de folosire a aplicației utilizatorul poate să-și blocheze telefonul fără să piardă modificările. Conexiunea cu placa de dezvoltare Raspberry Pi se va pierde doar în momentul în care se iese total din aplicație. Atunci se pierd toate setările făcute, iar valorile de la motoarele de vibrații o să se reseteze la cele implicite.
 \\
 \par Instalarea aplicației este una foarte ușoară și se întâmplă cu ajutorul unui fișier cu extensia apk. Pe durata instalării, aplicația nu va cere nici o fel de permisiune.
 \subsubsection{Metoda de calcul pentru modificarea intensităților motoarelor de vibrații}
-Modificarea intensităților cu care motoarele conectate vibrează este o funcționalitatea a cărui implementare necesită recalcularea valorilor cu ajutorul niștor formule. Am încercat să aleg metoda cea ma corectă de a calcula aceste schimbări astfel încât rezultatul final să fie unul cât mai corect și mai vizibil. Pe partea de aplicație Android am implementat numai partea de interfață a acestei funcționalități, urmând ca în aplicația de pe placa de dezvoltare Raspberry Pi să se facă calculelel necesare.
+Modificarea intensităților cu care motoarele conectate vibrează este o funcționalitatea a cărui implementare necesită recalcularea valorilor cu ajutorul niștor formule. Am încercat să aleg metoda cea ma corectă de a calcula aceste schimbări astfel încât rezultatul final să fie unul cât mai corect și mai vizibil. Pe partea de aplicație Android am implementat numai partea de interfață a acestei funcționalități, urmând ca în aplicația de pe placa de dezvoltare Raspberry Pi să se facă calculele necesare.
 \\ %limita
-\par În aplicația Android schimbarea valorilor a fost implementată cu ajutorul unei bare de progres. Aceste bare, a căror progrese pot fi setat manual de către utilizator, pot lua valori întregi într-o anumită limită ce poate fi specificată în cod. În cazul nostru aceste valori sunt cuprinse între 0 și 100, valoarea implicită fiind 50 datorită faptului că intensitatea poate să și scadă, nu numai să crească. Astfel dacă un utilizator trage bara de progres până la valoarea 0, intensitatea va scădea iar la 100 va crește cu până la 0.2 de valori. În momentul în care aplicația a sesizat o schimbare de valori în bara de progres, se trimite valoarea curentâ prin socket câtre aplicația de pe placa de dezvoltare. Mesajul se trimite sub forma unor două cuvinte (a se vedea figura \ref{fig:sendProgress}), toate mesajele fiind trimise așa pentru o parsare mai ușoară și corectă. Astfel în aplicația scrisă în python, prin despărțirea acestor două cuvinte, putem să ne dăm seama ușor operațiile ce trebuie făcute după primirea mesajelor.
+\par În aplicația Android schimbarea valorilor a fost implementată cu ajutorul unei bare de progres. Aceste bare, a căror progrese pot fi setat manual de către utilizator, pot lua valori întregi într-o anumită limită ce poate fi spe\-ci\-fi\-ca\-tă în cod. În cazul nostru aceste valori sunt cuprinse între 0 și 100, valoarea implicită fiind 50 datorită faptului că intensitatea poate să și scadă, nu numai să crească. Astfel dacă un utilizator trage bara de progres până la valoarea 0, intensitatea va scădea iar la 100 va crește cu până la 0.2 de valori. În momentul în care aplicația a sesizat o schimbare de valori în bara de progres, se trimite valoarea curentâ prin socket câtre aplicația de pe placa de dezvoltare. Mesajul se trimite sub forma unor două cuvinte (a se vedea figura \ref{fig:sendProgress}), toate mesajele fiind trimise așa pentru o parsare mai ușoară și corectă. Astfel în aplicația scrisă în python, prin despărțirea acestor două cuvinte, putem să ne dăm seama ușor operațiile ce trebuie făcute după pri\-mi\-rea mesajelor.
 \begin{figure}[h]
 \centering
 \includegraphics[]{sendProgress}
@@ -141,7 +142,7 @@ Modificarea intensităților cu care motoarele conectate vibrează este o funcț
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.75]{progressNot50}
-\caption{Calculul valorii cu pogres schimbat}
+\caption{Calculul valorii cu progres schimbat}
 \label{fig:not50}
 \end{figure} 
 \\
@@ -150,11 +151,11 @@ Acest calcul se poate observa în figura \ref{fig:additionalProgress}, unde \ver
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.6]{additionalProgress}
-\caption{Progress adițional}
+\caption{Calculare progres adițional}
 \label{fig:additionalProgress}
 \end{figure} 
 \\
-\par Exemplificarea acestui funcționalități se poate observa în figura \ref{fig:beforeAfter} , unde prima parte a imaginii reprezintă nota muzicală fără schimbarea intensității iar partea a doua cu o schimbare de intensitate cu 0.2 valori.
+\par Exemplificarea acestui funcționalități se poate observa în figura \ref{fig:beforeAfter} , unde prima parte a imaginii reprezintă nota muzicală fără schimbarea intensității iar partea a doua cu o schimbare de intensitate cu 0.2 valori. În ambele cazuri s-a apăsat o notă din octava din mijloc a pianului, ceea ce se poate vedea și din valoarea vibrației calculate. Este cu puțin peste 0.5, care era valoarea implicită a notei La din mijloc.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.8]{beforeAfter}
@@ -170,7 +171,7 @@ Metoda aleasă pentru comunicarea între placa de dezvoltare Raspberry Pi și ap
 \begin{figure}[h]
 \centering
 \includegraphics[]{freqParse}
-\caption{}
+\caption{Decodare mesaj de la server}
 \label{fig:freqParse}
 \end{figure} 
 \subsubsection{Integrarea vizualizării culorilor cu ajutorul frecvențelor}
@@ -205,11 +206,11 @@ Pentru a găsi lungimea de undă corespunzătoare în acest caz frecvența va fi
 % a se adauga exemple cu culori
 Datorită faptului că valorile RGB trebuie să fie cuprinse între 0 și 255, la sfârșit fiecare valoare se va înmulți cu 255 și se a returna un vector cu trei valori. Reprezentarea acestor culori se face cu ajutorul unui ImagevIew astfel se va folosi metoda \verb|setBackgrounColor()| unde se vor da ca parametrii cele trei valori calculate. Pentru că programul rulează pe mai multe fire de execuție, iar calcularea valorlor RGB se întâmplă pe un thread separat pentru a nu-l bloca pe cel principal, trebuie să avem în vedere faptul că nu putem să facem modificări pe UI atâta timp cât noi suntem pe un fir de execuție "muncitor" (adică care nu se ocupă de aspecte cum ar fi desenarea UI-ului sau răspunderea la interacțiunile utilizatorilor). Pentru a rezolva această problemă am utilizat metoda \verb|runOnUiThread()|. Primind ca parametru un nou \verb|Runnable|, metoda a determina executarea codului pe firul principal de execuție. Apelarea acestei metode este posibil numai în cazul în care suntem în clasa \verb|MainActivity|, fiind o metodă a obiectului \verb|Activity|.
 \\
-\par Fiecare notă muzicală dintr-o octavă va avea culori diferite ceea ce înseamnă că nu se va diferenția prin culori faptul că nota cântată a fost una adâncă sau înaltă, acest lucru putând fi diferențiat numai prin vibrațiile simțite. Datorită faptului că frecvența inițială se înmulțește până când rezultatul este o una la care ochiul uman ar percepe culorile, secvența culorilor dintr-o octavă nu va urmări în totalitate ordinea culorilor din spectrul vizibil. Asta înseamnă că prima notă din octavă, care ar trebui să aibă cea mai mică frecvență și cea mai mare lungime de undă, nu va avea culoarea roșie. Însă se poate observa diferența minimală de culori dintre notele unele note adiacente. De exemplu notele fa, fa$\sharp$ și sol au toate o tentă de culoare roșie. Exemplele de culori pentru fiecare notă pe care le-am obținut în urma implementării algoritmul se pot observa în figura \ref{fig:colors}.
+\par Fiecare notă muzicală dintr-o octavă va avea culori diferite ceea ce în\-seam\-nă că nu se va diferenția prin culori faptul că nota cântată a fost una adâncă sau înaltă, acest lucru putând fi diferențiat numai prin vibrațiile simțite. Datorită faptului că frecvența inițială se înmulțește până când rezultatul este o una la care ochiul uman ar percepe culorile, secvența culorilor dintr-o octavă nu va urmări în totalitate ordinea culorilor din spectrul vizibil. Asta înseamnă că prima notă din octavă, care ar trebui să aibă cea mai mică frecvență și cea mai mare lungime de undă, nu va avea culoarea roșie. Însă se poate observa diferența minimală de culori dintre notele unele note adiacente. De exemplu notele fa, fa$\sharp$ și sol au toate o tentă de culoare roșie. Exemplele de culori pentru fiecare notă pe care le-am obținut în urma implementării algoritmul se pot observa în figura \ref{fig:colors}.
 \begin{figure}[h]
 \centering
 \includegraphics[scale = 1.1,angle = 90]{colors}
-\caption{Culori octavă}
+\caption{Rezultatul reprezentării notelor muzicale în culori}
 \label{fig:colors}
 \end{figure} 
 \end{document}

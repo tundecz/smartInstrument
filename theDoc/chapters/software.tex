@@ -24,7 +24,7 @@ Python este un limbaj de programare devenit foarte popular datorită faptului c�
 \begin{figure}[h]
 \centering
 \includegraphics{indentare}
-\caption{Exemplu indentare}
+\caption{Indentare în limbajul de programare Python}
 \label{fig:indent}
 \end{figure}
 O scăderii  a indentării  seminfică sfârșitul unui bloc curent în timp ce creșterea indică începerea unei noi afirmații. Un statement (afirmație) este o unitate sintactică a limbajelor de programare imperative care exprimă  unele acțiuni care trebuie efectuate.
@@ -83,7 +83,7 @@ Parsarea și reprezentarea datelor primite de la instrumentul muzical este un pa
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{midoPort}
-\caption{Port de intrare}
+\caption{Port MIDI de intrare}
 \label{fig:port}
 \end{figure}
  Pentru a putea găsi numele portului există metoda \verb|mido.get_input_names()| a bibliotecii, care afișează toate proturile disponibile. Sunt incluse și alte tipuri de porturi în bibliotecă înafară de cele de intrare și de ieșire, precum multi portul care ne permite să citim și să scriem mesaje pe mai multe porturi, SocketPort-ul sau IOPort-ul care este o combinație între cel de intrare și ieșire. După nevoi se pot implementa și altfel de tipuri \cite{Mido}.
@@ -108,7 +108,7 @@ Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețe
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{handleAccept}
-\caption{Handle accept}
+\caption{Acceptarea conexiunilor de socket}
 \label{fig:accept}
 \end{figure}
 \\
@@ -127,7 +127,7 @@ Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețe
 \caption{Primire date}
 \label{fig:read}
 \end{figure}
-
+Datele primite trebuie mereu decodate datorită faptului că mesajele care vin prin comunicarea cu socket-uri sunt codate în Unicode. În figura de față, după acest pas, mesajele sunt introduse într-o coadă pentru trimiterea mai departe a acestora în alte fire de execuții.
 \subsection{Limbajul de programare Java}
 \subsubsection{Scurtă introducere}
 Limbajul de programare Java este un limbaj cu scop general, bazat pe clase, orintat pe obiect și proiectat să aibă	cât mai puține dependențe de implementare fiind cel mai popular limbaj de programare în 2019. Sintaxa limbajului seamănă cel mai mult cu cel de C sau C++. Orientarea pe obiect este o caracteristică foarte importantă în ceea ce privește structura acestui limbaj datorită faptului că tot codul scris trebuie să fie într-o clasă. Astfel, în structura unui proiect scris în Java, fiecare fișier reprezintă o clasă separată. Fiecare element de date este un obiect, excepție făcând numai tipurile primitive de date. În comparație cu limbajul de programare C++, Java nu suportă moștenirile multiple și suprascrierea operatorilor.
@@ -160,7 +160,7 @@ Implementarea acestei metode și crearea unei instanțe a acestei clase nu este 
 \subsection{Crearea unei aplicații Android cu Android Studio}
 \subsubsection{Sistemul de operare Android}
 Android este un sistem de operare care a fost conceput pentru dispozitivele mobile și care inițial a fost dezvoltat de compania Google. Este bazat pe sistemul de operare Linux însă mai multe drivere și biblioteci  au fost mo\-di\-fi\-ca\-te sau dezvoltate pentru a permite Android-ul să funcționeze cât mai eficient pe dispozitivele mobile. Aplicațiile Android sunt scrise în limbajul de programare Java și sunt rulate pe o mașină virtuală. Se pot dezvolta aplicații și în limbajul C acestea fiind compilate în cod mașină ARM. Dezvoltarea acestui sistem de operare se întâmplă într-un pas destul de rapid, având un release major nou în fiecare lună  \cite{Android}.	
-\subsubsection{Android Studio}
+\subsubsection{Mediul de dezvoltare Android Studio}
 Pentru crearea aplicației Android s-a folosit Android Studio datorită faptului că oferă multe funcții care îmbunătățesc productivitatea atunci când vine vorba despre construirea  aplicațiilor Android. Android Studio ne oferă un mediu unificat în care putem dezvolta aplicații pentru toate dispozitivele Android având integrat un emulator rapid cu ajutorul căruia putem testa aplicația fără a conecta un dispozitiv Android la calculator. Emulatorul ne oferă aproape toate capabilitățile unui dispozitiv Android real. Desigur avem posibilitatea de a testa aplicație și pe un telefon real, făcând numai câteva setări din telefon.
 \\
 \par Structura unui proiect în Android Studio conține mai multe directoare cu codul sursă atât pentru interfață cât și pentru clasele cu ajutorul cărora aplicația va rula încât și clasele pentru testarea aplicației. La prima vedere fișierele cele mai importate sunt \verb|AndroidManifest.xml| în care putem găsi informații esențiale despre aplicația noastră, fișierul java \verb|MainActivity| care cel mai bine se poate compara cu funcția \verb|main()| din C++, fiind locul de unde se încarcă componenta UI a aplicației. Dacă avem o aplicație cu ecrane multiple, pentru fiecare ecran o să avem o activitate diferită, activitatea principală fiind fereastra cu care porneșe aplicația. În cazul acestei aplicații vom avea doar o singură fereastră, ciclul acestuia fiind controlată din \verb|MainActivity|. Există și un folder numit res, care conține toate resursele care nu sunt cod cum ar fi șiruri UI și imagini bitmap. Aici putem vedea vizual cum va arăta interfața aplicației fiind și locul în care putem construi UI-ul printr-o simplă tragele a componentelor din paletă.
@@ -174,15 +174,15 @@ Pentru crearea aplicației Android s-a folosit Android Studio datorită faptului
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{resetButton}
-\caption{Listener}
+\caption{Listener în Java}
 \label{fig:reset}
 \end{figure}
 \\
-\par O componentă mai interesantă este cel de \verb|Seekbar| care este o extensie a barei de progres și cu ajutorul căruia putem seta prin glisare o valoare a progresului. Această valoare poate fi un număr întreg iar valoarea minimă și maximă poate fi setată din cod cu ajutorul atributelor \verb|min| și \verb|max|. Putem prelua valoarea modificării cu metoda \verb|onProgressChanged()| (figura \ref{fig:seek}).
+\par O componentă mai interesantă este cel de \verb|Seekbar| care este o extensie a barei de progres și cu ajutorul căruia putem seta prin glisare o valoare a progresului. Această valoare poate fi un număr întreg iar valoarea minimă și maximă poate fi setată din cod cu ajutorul atributelor \verb|min| și \verb|max|. Putem prelua valoarea modificării cu metoda \verb|onProgressChanged()| (figura \ref{fig:seek}). Metoda \verb|setOnSeekBarChangeListener()| apelată va asculta mereu la modificările create pe această componentă și dacă s-a sesizat o astfel de modificare, utilizatorul este anunțat printr-un mesaj.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.6]{seekBar}
-\caption{SeekBar}
+\caption{Exemplu bară de progres}
 \label{fig:seek}
 \end{figure}
 \\
