@@ -4,7 +4,7 @@
 %inserare poza cu interfata
 Raspbian este un sistem de operare pentru placa de dezvoltare Rasberry Pi, bazat pe Debian, numele lui venind din combinația cuvintelor Raspberry și Debian. Sunt mai multe versiuni a acestui sistem de perare, ultimul fiind Buster care e compatibil cu toate modelele de Rasperry Pi. Cu toate că a fost creat special pentru acestă placă, este funcțional și pentru sistemele non-Raspberry Pi, fiind dezvoltat pentru arhitecturi de microprocesoare de tip RISC \footnote{Reduced Instruction Set Computer}. Instalarea sistemlui de operație se face relaitv ușor. După descărcarea imaginii și scrierea lui pe card, tot ce trebuie făcut este boot-area plăcii de dezvoltare Raspberry Pi. O parte a codului din acest proiect se execută pe acest sistem de operare.
 \\
-\par Cea mai ușoară cale de a vedea interfața sistemului de operare este prin conectarea plăcii Rasperry Pi la un televizor cu ajutorul unui cablu HDMI\footnote{High-Definition Multimedia Interface} ș folosirea unei tastaturi și a unui mouse pentru controlarea acestuia. Cealaltă cale, care necesită mai puțin efort, este accesarea terminalului cu ajutorul protocolului Secure Shell. Programul pe care l-am folosit pentru acest acces se numește Putty. Aceasta accesează terminalul cu ajutorul adresei IP a plăcii Raspberry Pi.
+\par Cea mai ușoară cale de a vedea interfața sistemului de operare este prin conectarea plăcii Rasperry Pi la un televizor cu ajutorul unui cablu HDMI\footnote{High-Definition Multimedia Interface} iar prin folosirea unei tastaturi și a unui mouse se poate controla cu ușurință, ca un calculator normal. Cealaltă cale, care necesită mai puțin efort, este accesarea terminalului cu ajutorul protocolului Secure Shell. Programul pe care l-am folosit pentru acest acces se numește Putty. Aceasta accesează terminalul cu ajutorul adresei IP a plăcii Raspberry Pi.
 \\
 \subsection{Protocolul de comunicare MIDI}
 \subsubsection{Prezentarea mesajelor MIDI}
@@ -29,7 +29,7 @@ Python este un limbaj de programare devenit foarte popular datorită faptului c�
 \end{figure}
 O scăderii  a indentării  seminfică sfârșitul unui bloc curent în timp ce creșterea indică începerea unei noi afirmații. Un statement (afirmație) este o unitate sintactică a limbajelor de programare imperative care exprimă  unele acțiuni care trebuie efectuate.
 \\
-\par În Python, ca și în celelalte limbaje de programare, putem face diferența dintre o metodă și o funcție. Ambele trebuie să înceapă cu cuvântul cheie def urmat de denumirea funcției/metodei. Spre deosebire de alte limbaje de programare, în cazul metodelor în Python trebuie specificat explicit cuvântul self în parametrii metodei. Acest cuvânt indică instanța clasei de care aparține metoda respectivă.
+\par În Python, ca și în celelalte limbaje de programare, putem face diferența dintre o metodă și o funcție. Ambele trebuie să înceapă cu cuvântul cheie def urmat de denumirea funcției/metodei. Spre deosebire de alte limbaje de prog\-ra\-ma\-re, în cazul metodelor în Python trebuie specificat explicit cuvântul self în parametrii metodei. Acest cuvânt indică instanța clasei de care aparține metoda respectivă.
 \subsubsection{Biblioteca Gpiozero pentru programarea pinurilor}
 Gpiozero este o bibliotecă care oferă o interfață simplă pentru programarea GPIO-urilor de pe placa de dezvoltare Raspberry Pi. Spre deosebire de alte biblioteci, aceasta oferă o curbă de învățare mai lină pentru începători și posibilitatea dezvoltării proiectelor complicate cu mai multă ușurință și mai puține linii de cod. La început Gpiozero a fost doar un layout peste biblioteca RPi.GPIO, ulterior fiind adăugate diferite suporturi. În prezent RPi.GPIO este folosit ca bibliotecă implicită pentru Gpiozero, această configurație putând fii schimbată, existând mai multe astfel de biblioteci, cum ar fi de exemplu pigpio. Instalarea acestei biblioteci este necesară numai în cazul în care se folosește pe alt sistem de operare decât Raspbian, pe acesta fiind deja inclus. Odată cu instalarea ei putem rula comanda pinout din linia de comandă pentru a vedea vizual detalii despre pinii disponibili de pe Raspberry Pi (vezi figura \ref{fig:pinout}). Acest lucru devine în ajutor în momentul în care, la configurarea pinurilor, trebuie să precizăm numărul pinului ales astfel fiind mult mai ușor de urmat poziționarea fiecărui pin în parte.
 \begin{figure}[h]
@@ -39,16 +39,16 @@ Gpiozero este o bibliotecă care oferă o interfață simplă pentru programarea
 \label{fig:pinout}
 \end{figure}
 \\
-\par În comparație cu alte biblioteci, în Gpiozero se pote observa o abordare orientată pe obiecte, acesta folosind clase în loc de funcții. Pe lângă niște clase specifice, Gpiozero oferă două clase mari de bază, InputDevice și OutputDevice, celelalte fiind derivate din acestea, fiecare având metode și proprietăți specifice care sunt adaptate dispozitivului controlat. Clasa OutputDevices și tot ce derivă din ea este folosită pentru controlarea dispozitivelor de ieșire cum ar fi de exemplu LED-urile, pe când cea de InputDevice este pentru dispozitivele care sunt folosite pentru a furniza date și semnale de control. Asftel alegerea clasei de lucru este mult mai vizibilă și mult mai ușoară.
+\par În comparație cu alte biblioteci, în Gpiozero se pote observa o abordare orientată pe obiecte, acesta folosind clase în loc de funcții. Pe lângă niște clase specifice, Gpiozero oferă două clase mari de bază, InputDevice și OutputDevice, celelalte fiind derivate din acestea, fiecare având metode și proprietăți specifice care sunt adaptate dispozitivului controlat. Clasa OutputDevices și tot ce derivă din ea este folosită pentru controlarea dis\-po\-zi\-ti\-ve\-lor de ieșire cum ar fi de exemplu LED-urile, pe când cea de InputDevice este pentru dis\-po\-zi\-ti\-ve\-le care sunt folosite pentru a furniza date și semnale de control. Asftel alegerea clasei de lucru este mult mai vizibilă și mult mai ușoară.
 \\
 \par Pentru controlarea motoarelor de vibrații în proiectul de față s-au folosit clasa PWMOutputDevice derivat din OutputDevice care permit și modularea lățimii pulsului. Importarea bibliotecii se face simplu, conform figurei \ref{fig:import}.
 \begin{figure}[h]
 \centering
 \includegraphics{importPWM}
-\caption{Importare biblioteca Gpiozero}
+\caption{Importarea bibliotecii Gpiozero}
 \label{fig:import}
 \end{figure}
-În momentul instanțierii clasei, în constructor putem da de la unu pana la cinci parametrii, numai primul fiind obligatori, celelalte având deja valorile setate implicit. Parametrul obligatoriu este numărul pinului de pe Raspberry Pi cu care lucrăm. Numerotarea pinurilor în cazul acestei biblioteci se face cu ajutorul sistemului Broadcom. Ceilalți parametrii ai constructorului sunt pentru a seta valoarea de început (duty cycle), frecvența, dacă să fie activ sau nu și nu în ultimul rând putem schimba fabrica de pini, asta fiind o caracteristică avansată pe care majoritatea utilizatorilor o pot ignora. Un exemplu de instanțiere a acestei clase se poate vedea în figura \ref{fig:constructor}, unde parametrul gpio indică numărul pinului setat. .
+În momentul instanțierii clasei, în constructor putem da de la unu pana la cinci parametrii, numai primul fiind obligatori, celelalte având deja valorile setate implicit. Parametrul obligatoriu este numărul pinului de pe Raspberry Pi cu care lucrăm. Numerotarea pinurilor în cazul acestei biblioteci se face cu ajutorul sistemului Broadcom. Ceilalți parametrii ai constructorului sunt pentru a seta valoarea de început (duty cycle), frecvența, dacă să fie activ sau nu și nu în ultimul rând putem schimba fabrica de pini, asta fiind o ca\-rac\-te\-ris\-ti\-că avansată pe care majoritatea utilizatorilor o pot ignora. Un exemplu de instanțiere a acestei clase se poate vedea în figura \ref{fig:constructor}, unde parametrul gpio indică numărul pinului setat. .
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.9]{constructorPWM}
@@ -60,11 +60,11 @@ Gpiozero este o bibliotecă care oferă o interfață simplă pentru programarea
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{setareValori}
-\caption{Setarea valorilor motorului}
+\caption{Setarea valorii și frecvenței motoarelor}
 \label{fig:val}
 \end{figure}
 \\
-\par Biblioteca Gpiozero pune la dispoziție și o clasă Tone destinată utilizatorilor care folosesc TonalBuzzer pentru a putea reprezenta cu ușurință notele muzicale. Cu toate că în proiectul de față nu este folosit un astfel de dispozitiv, clasa asta ne poate deveni în ajutor la calcularea frecvențelor pornind de la numărul notei MIDI transmis de pian. Datorită faptului că clasa poate fi construită într-o varietate de moduri, asta incluzând și prin numere MIDI, se poate cu ușurință obține frecvența notei respective cu ajutorul atributului frequency. Codul din spatele clasei calculează frecvența cu formula
+\par Biblioteca Gpiozero pune la dispoziție și o clasă Tone destinată utilizatorilor care folosesc TonalBuzzer pentru a putea reprezenta cu ușurință notele muzicale. Cu toate că în proiectul de față nu este folosit un astfel de dis\-po\-zi\-tiv, clasa asta ne poate deveni în ajutor la calcularea frecvențelor pornind de la numărul notei MIDI transmis de pian. Datorită faptului că clasa poate fi construită într-o varietate de moduri, asta incluzând și prin numere MIDI, se poate cu ușurință obține frecvența notei respective cu ajutorul atributului frequency. Codul din spatele clasei calculează frecvența cu formula
 \[ f = 2^{(d-69)/12} * 440Hz\]
 unde parametrul d reprezintă numărul notei muzicale MIDI. Pe lângă nota MIDI, clasa se poate construi pornind și de la frecvență sau de la specificarea notei prin sistemul alfabetic (acesta consistând dintr-o literă majusculă de la A până la G urmat de un modificator opțional și numărul de octave). Folosirea acestei clase se poate vedea în figura \ref{fig:tone}.
 \begin{figure}[h]
@@ -83,7 +83,7 @@ Parsarea și reprezentarea datelor primite de la instrumentul muzical este un pa
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{midoPort}
-\caption{Port MIDI de intrare}
+\caption{Deschiderea unui port MIDI de intrare}
 \label{fig:port}
 \end{figure}
  Pentru a putea găsi numele portului există metoda \verb|mido.get_input_names()| a bibliotecii, care afișează toate proturile disponibile. Sunt incluse și alte tipuri de porturi în bibliotecă înafară de cele de intrare și de ieșire, precum multi portul care ne permite să citim și să scriem mesaje pe mai multe porturi, SocketPort-ul sau IOPort-ul care este o combinație între cel de intrare și ieșire. După nevoi se pot implementa și altfel de tipuri \cite{Mido}.
@@ -92,15 +92,15 @@ Parsarea și reprezentarea datelor primite de la instrumentul muzical este un pa
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.9]{parsareMIDI}
-\caption{Citire mesaje MIDI}
+\caption{Citirea mesajelor MIDI}
 \label{fig:midiPars}
 \end{figure}
 Vectorul găsit conține 3 parametrii printre care ultimele două indică valoarea notei MIDI respectiv puterea cu care acesta a fost cântată/apăsat. Biblioteca mido suportă majoritatea tipurilor de mesaje descrise în prezentarea mesajelor MIDI. 
 
 \subsubsection{Programarea asincronă cu biblioteca Asyncore}
-Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețetea este comunicare prin sockets. În Python socket-urile sunt obiecte care oferă o modalitate de schimb de informații între două procese între-o manieră directă și independentă de platformă. Aceștia pot fi implementate pe mai multe tipuri de canale diferite cum ar fi TCP\footnote{Transmission Control Protocol} sau UDP\footnote{User Datagram Protocol}. Varianta cea mai de încredere este utilizarea protocolului TCP, care este și cel utilizat în mod implicit, datorită faptului că pachetele aruncate în rețea sunt detectate și retransmise de expeditor și datele sunt citite în ordinea trimiterilor lor. E important să ținem cont de acest lucru datoriă faptului că nu există nicio garanție ca datele trimise să ajungă la destinație. Cele mai comune aplicații cu socket-uri sunt cele de tipuri client-server, unde clientul trimite date către server iar serverul le procesează. Trimiterea acestor mesaje poate fi și una bi-direcțională cum va fi și în cazul nostru. Atât clientul cât și serverul vor trimite date între ei.
+Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețetea este comunicare prin sockets. În Python socket-urile sunt obiecte care oferă o modalitate de schimb de informații între două noduri dintr-o rețea. Aceștia pot fi implementate pe mai multe tipuri de canale diferite cum ar fi TCP\footnote{Transmission Control Protocol} sau UDP\footnote{User Datagram Protocol}. Varianta cea mai de încredere este utilizarea protocolului TCP, care este și cel utilizat în mod implicit, datorită faptului că pachetele aruncate în rețea sunt detectate și retransmise de expeditor și datele sunt citite în ordinea trimiterilor lor. E important să ținem cont de acest lucru datoriă faptului că nu există nicio garanție ca datele trimise să ajungă la destinație. Cele mai comune aplicații cu socket-uri sunt cele de tipuri client-server, unde clientul trimite date către server iar serverul le procesează. Trimiterea acestor mesaje poate fi și una bi-direcțională cum va fi și în cazul nostru. Atât clientul cât și serverul vor trimite date între ei.
 \\
-\par În limbajul de programare Python aceste socket-uri pot fi implementate cu ajutorul modulului socket, care oferă o interfață de programare a aplicației convenabilă și consistentă. Modul în care aceste socket-uri funcționează este în felul următor: serverul crează un socket, legându-se la o adresă și un port la care va asculat conexiunile de la client la adresa respectivă. Îndată ce un client socket, cu aceeași adresă și port, s-a concetat la server se poate începe trimiterea de date. La sfârșit, după ce s-a încheiat tot procesul, clientul poate închide conexiunea cu serverul printr-o simplă metodă \verb|socket.close()|, după care se închide și partea de server.
+\par În limbajul de programare Python aceste socket-uri pot fi implementate cu ajutorul modulului socket, care oferă o interfață de programare a aplicației convenabilă și consistentă. Modul în care aceste socket-uri funcționează este în felul următor: serverul crează un socket, legându-se la o adresă și un port la care va asculat conexiunile de la client la adresa respectivă. Îndată ce un client socket, cu aceeași adresă și port, s-a conectat la server se poate începe trimiterea de date. La sfârșit, după ce s-a încheiat tot procesul, clientul poate închide conexiunea cu serverul printr-o simplă metodă \verb|socket.close()|, după care se închide și partea de server.
 \\
 \par Crearea unui server simplu este ușor de realizat în Python, nefiind atăt de multe metode ce trebuie utilizate. Când vine vorba despre trimiterea datelor către un client la un anumit timp (când sunt disponibile) este mult mai ușor și avantajos de folosit modulul Asyncore, care ne oferă, pe lângă o implementare reactivă a unui socket, posibilitatea de a avea un program asincron ceea ce poate fi un avantaj mare mai ales când avem mai multe socket-uri deschise. Asyncore ne oferă o infrastructură de bază pentru scrierea socket-urilor de client și server. Astfel programatorul are posibilitatea de a scrie cod care se apelează numai atunci când trebuie să se întâmple ceva (să se trimite sau să se primească anumite date) în loc de a apela metode și de a crea obiecte de tip socket. Ideea de bază în spatele acestui modul este de a crea unul sau mai multe instanțe de clase \verb|asyncore.dispatcher|. Fiecare astfel de canal de rețea creat se adaugă la o hartă globală care eset folosită de funția \verb|loop()|. Apelarea acestei metode \verb|loop()| activează aceste canale, care rulează până când ultimul canal a fost închis \cite{Async}.
 \\
@@ -108,7 +108,7 @@ Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețe
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{handleAccept}
-\caption{Acceptarea conexiunilor de socket}
+\caption{Metoda de acceptare a conexiunilor de socket}
 \label{fig:accept}
 \end{figure}
 \\
@@ -116,7 +116,7 @@ Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețe
 \begin{figure}[h]
 \centering
 \includegraphics{handleWrite}
-\caption{Trimitere date}
+\caption{Trimiterea datelor către client}
 \label{fig:write}
 \end{figure}
 \\
@@ -124,7 +124,7 @@ Una dintre metodele cele mai rapide și simple de a trimite mesaje într-o rețe
 \begin{figure}[h]
 \centering
 \includegraphics{handleRead}
-\caption{Primire date}
+\caption{Primirea și decodarea datelor de la client}
 \label{fig:read}
 \end{figure}
 Datele primite trebuie mereu decodate datorită faptului că mesajele care vin prin comunicarea cu socket-uri sunt codate în Unicode. În figura de față, după acest pas, mesajele sunt introduse într-o coadă pentru trimiterea mai departe a acestora în alte fire de execuții.
@@ -138,7 +138,7 @@ Limbajul de programare Java este un limbaj cu scop general, bazat pe clase, orin
 \subsubsection{Folosirea firelor de executie in Java}
 Firele de execuție joacă un rol important în momentul în care dorim să creăm o aplicație mobilă cu ajutorul limbajului de programare Java. Un fir de execuție poate fi definită ca fiind ce mai mică  unitate de procesare ce poate fi programată spre execuție de către un sistem de operare. Ele permit programelor să facă mai multe lucruri simultan. Acest lucru permite unui utilizator să facă ceva în timp ce altceva se întâmplă pe fundal \cite{articleThread}, firele de execuție execută porțiuni de cod  în paralel în interiorul aceluiași proces. În timp ce comunicarea între procese se poate face numai cu mecanisme de comunicare interprocesare, comunicarea între firele de execuție se întâmplă mult mai ușor și mai rapid, ele având un spațiu de memorie comun și un sistem de semaforizare.
 \\
-\par Java este un limbaj de programare care are printre principiile sale și suportarea programării pe mai multe fire de execuție. Sistemul Java de rulare depinde de thread-uri datorită a mai multor lucruri. Firele de execuție reduc ineficiența prin prevenirea pierderii ciclirilor  procesorului \cite{Thread}.
+\par Java este un limbaj de programare care are printre principiile sale și suportarea programării pe mai multe fire de execuție. Sistemul Java de rulare depinde de thread-uri datorită a mai multor lucruri. Firele de execuție reduc ineficiența prin prevenirea pierderii ciclurilor  procesorului \cite{Thread}.
 \\ 
 \par Noțiunea de multithreading înseamnă rularea unei aplicații pe mai multe fire de execuție. În cazul limbajului de programare Java acest sistem este bazat pe clasa \verb|Thread|, pe metodele acestuia și pe interfața \verb|Runnable|. Astfel pentru a crea un fir de execuție nou avem două soluții: putem extinde clasa \verb|Thread| și să suprascriem metoda \verb|run()| sau putem să implementăm interfața \verb|Runnable|, ambele având același efect. În interiorul metodei \verb|run()| se va scrie codul care se va executa în dată ce firul de execuție e pornit. Astfel de exemplu se poate vedea în figura \ref{fig:thread}.
 \begin{figure}[h]
@@ -163,7 +163,7 @@ Android este un sistem de operare care a fost conceput pentru dispozitivele mobi
 \subsubsection{Mediul de dezvoltare Android Studio}
 Pentru crearea aplicației Android s-a folosit Android Studio datorită faptului că oferă multe funcții care îmbunătățesc productivitatea atunci când vine vorba despre construirea  aplicațiilor Android. Android Studio ne oferă un mediu unificat în care putem dezvolta aplicații pentru toate dispozitivele Android având integrat un emulator rapid cu ajutorul căruia putem testa aplicația fără a conecta un dispozitiv Android la calculator. Emulatorul ne oferă aproape toate capabilitățile unui dispozitiv Android real. Desigur avem posibilitatea de a testa aplicație și pe un telefon real, făcând numai câteva setări din telefon.
 \\
-\par Structura unui proiect în Android Studio conține mai multe directoare cu codul sursă atât pentru interfață cât și pentru clasele cu ajutorul cărora aplicația va rula încât și clasele pentru testarea aplicației. La prima vedere fișierele cele mai importate sunt \verb|AndroidManifest.xml| în care putem găsi informații esențiale despre aplicația noastră, fișierul java \verb|MainActivity| care cel mai bine se poate compara cu funcția \verb|main()| din C++, fiind locul de unde se încarcă componenta UI a aplicației. Dacă avem o aplicație cu ecrane multiple, pentru fiecare ecran o să avem o activitate diferită, activitatea principală fiind fereastra cu care porneșe aplicația. În cazul acestei aplicații vom avea doar o singură fereastră, ciclul acestuia fiind controlată din \verb|MainActivity|. Există și un folder numit res, care conține toate resursele care nu sunt cod cum ar fi șiruri UI și imagini bitmap. Aici putem vedea vizual cum va arăta interfața aplicației fiind și locul în care putem construi UI-ul printr-o simplă tragele a componentelor din paletă.
+\par Structura unui proiect în Android Studio conține mai multe directoare cu codul sursă atât pentru interfață cât și pentru clasele cu ajutorul cărora aplicația va rula încât și clasele pentru testarea aplicației. La prima vedere fișierele cele mai importate sunt \verb|AndroidManifest.xml| în care putem găsi informații esențiale despre aplicația noastră, fișierul java \verb|MainActivity| care cel mai bine se poate compara cu funcția \verb|main()| din C++, fiind locul de unde se încarcă componenta UI a aplicației. Dacă avem o aplicație cu ecrane mul\-tip\-le, pentru fiecare ecran o să avem o activitate diferită, activitatea principală fiind fereastra cu care porneșe aplicația. În cazul acestei aplicații vom avea doar o singură fereastră, ciclul acestuia fiind controlată din \verb|MainActivity|. Există și un folder numit res, care conține toate resursele care nu sunt cod cum ar fi șiruri UI și imagini bitmap. Aici putem vedea vizual cum va arăta interfața aplicației fiind și locul în care putem construi UI-ul printr-o simplă tragele a componentelor din paletă.
 \\
 \par Paleta din Android Studio conține destule widget-uri pentru a dezvolta o interfață complexă și frumoasă pentru aplicația noastră. Fiecare astfel de element are propriile atribute și poate fi personalizat după placul nostru. În proiectul de față s-au folosit mai multe astfel de componente, fiecare având un rol aparte în funcționarea aplicației.
 \\
@@ -174,7 +174,7 @@ Pentru crearea aplicației Android s-a folosit Android Studio datorită faptului
 \begin{figure}[h]
 \centering
 \includegraphics[scale=1.1]{resetButton}
-\caption{Listener în Java}
+\caption{Metodă de listener în Java}
 \label{fig:reset}
 \end{figure}
 \\
@@ -182,7 +182,7 @@ Pentru crearea aplicației Android s-a folosit Android Studio datorită faptului
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.6]{seekBar}
-\caption{Exemplu bară de progres}
+\caption{Metoda de ascultare a schimbării a unei bare de progres}
 \label{fig:seek}
 \end{figure}
 \\
