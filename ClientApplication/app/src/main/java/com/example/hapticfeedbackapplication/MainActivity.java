@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setGreenColorOnSocketConnection(){
         feelTheMusicText.setTextColor(Color.rgb(0,133,119));
+        Toast.makeText(getApplicationContext(),"Connected to device",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 } else{
-                    Toast.makeText(getApplicationContext(),"Socket not bounded",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getApplicationContext(),"Socket not bounded",Toast.LENGTH_LONG).show();
                     Log.d("socket","hello");
                 }
                 new Thread(new MessageThread()).run();

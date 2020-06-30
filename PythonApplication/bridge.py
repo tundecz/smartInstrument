@@ -20,5 +20,4 @@ def dequeue_message():
     ev.clear() # do we need to call this method here or in readMidiMido class?
     return message
 
-# this module is creatied for the coomuniction between two threads
-# for the love of god, change the module name
+# this module is creatied for the communication between two threads
